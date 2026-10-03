@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#f5f5f3">
+<title>央美产品手绘 · 打卡训练</title>
+<style>
+/* ============ base ============ */
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --bg:#f3f3f0; --paper:#ffffff; --paper2:#f6f6f4; --paper3:#ecece8;
+  --ink:#1c1c1c; --ink2:#6f6f68; --ink3:#b0b0a8;
+  --line:#e0e0da; --line2:#ecece7;
+  --accent:#d81f1f; --accent-d:#a31515; --accent-soft:#fbe9e9;
+  --gold:#b3852e; --gold-soft:#f7eedd;
+  --green:#4e9a5f; --green-soft:#e6f3e9;
+  --blue:#4a6fa5; --blue-soft:#e8eef7;
+  --shadow:0 1px 2px rgba(0,0,0,.05),0 6px 20px rgba(0,0,0,.06);
+  --shadow-lg:0 8px 30px rgba(0,0,0,.12);
+  --r-lg:22px; --r-md:16px; --r-sm:12px;
+}
+html{-webkit-text-size-adjust:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","HarmonyOS Sans SC","MiSans","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;min-height:100vh;padding-bottom:calc(78px + env(safe-area-inset-bottom))}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;color:inherit}
+.hidden{display:none !important}
+
+/* ============ 顶部 ============ */
+header{background:linear-gradient(150deg,#171717 0%,#242424 55%,#2e2e2e 100%);color:#f5f3ef;padding:calc(14px + env(safe-area-inset-top)) 18px 16px;position:relative;overflow:hidden}
+header::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 85% -10%,rgba(216,31,31,.28),transparent 55%),radial-gradient(90% 70% at -10% 110%,rgba(216,31,31,.14),transparent 55%);pointer-events:none}
+.hd-inner{position:relative;max-width:680px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#e63b3b,#b81f1f);display:flex;align-items:center;justify-content:center;font-size:24px;color:#fff;box-shadow:0 4px 14px rgba(216,31,31,.38);flex:none;position:relative;overflow:hidden}
+.logo::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.35),transparent 45%)}
+.brand h1{font-size:17px;letter-spacing:.5px;font-weight:800;line-height:1.35}
+.brand p{font-size:11.5px;color:rgba(240,232,218,.7);margin-top:1px}
+.hd-badges{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.badge{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.2);border-radius:40px;padding:6px 14px;font-size:12.5px;display:flex;align-items:center;gap:6px;backdrop-filter:blur(6px)}
+.badge b{color:#f0c0c0;font-size:14.5px;font-weight:800}
+.badge .dot{width:7px;height:7px;border-radius:50%;background:#e85252;box-shadow:0 0 0 3px rgba(232,82,82,.25)}
+
+/* ============ 内容区 ============ */
+main{max-width:680px;margin:0 auto;padding:16px 14px 10px}
+.view{display:none}
+.view.show{display:block;animation:rise .32s cubic-bezier(.22,.8,.36,1)}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.vh{margin:2px 2px 14px}
+.vh h2{font-size:21px;font-weight:800;letter-spacing:.3px;display:flex;align-items:center;gap:8px}
+.vh .sub{color:var(--ink2);font-size:12.5px;margin-top:3px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-lg);padding:16px;box-shadow:var(--shadow);margin-bottom:14px;position:relative}
+.card h4{font-size:14.5px;font-weight:800;margin-bottom:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.sec-h{margin:22px 4px 12px;display:flex;align-items:center;gap:8px;font-size:15.5px;font-weight:800}
+.sec-h::before{content:"";width:4px;height:16px;border-radius:3px;background:linear-gradient(180deg,#e63b3b,#b81f1f);display:inline-block}
+.tag{display:inline-block;font-size:10.5px;border-radius:20px;padding:2.5px 9px;font-weight:700;vertical-align:1px}
+.tag.star{background:var(--accent-soft);color:var(--accent-d)}
+.tag.mid{background:var(--gold-soft);color:#8a5f1e}
+.tag.low{background:#ecece8;color:var(--ink2)}
+.tag.blu{background:var(--blue-soft);color:var(--blue)}
+.tag.grn{background:var(--green-soft);color:var(--green)}
+
+/* ============ 进度条 ============ */
+.pbar{height:9px;background:var(--paper3);border-radius:6px;overflow:hidden}
+.pfill{height:100%;background:linear-gradient(90deg,#e8533a,#b81f1f);border-radius:6px;transition:width .5s cubic-bezier(.22,.8,.36,1);min-width:0}
+.pfill.green{background:linear-gradient(90deg,#6fae7d,#4e9a5f)}
+.pfill.blue{background:linear-gradient(90deg,#6f8fc4,#4a6fa5)}
+
+/* ============ 按钮 ============ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;background:var(--paper2);border:1.5px solid var(--line);border-radius:14px;padding:11px 16px;font-size:14px;font-weight:600;transition:.15s;min-height:44px}
+.btn:active{transform:scale(.97)}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:linear-gradient(135deg,#e03a3a,#b81f1f);border:none;color:#fff;box-shadow:0 4px 14px rgba(220,47,47,.35)}
+.btn.primary:active{filter:brightness(.95)}
+.btn.small{padding:8px 13px;font-size:12.5px;border-radius:12px;min-height:38px}
+.btn.danger{border-color:#ecc0b6;color:var(--accent-d);background:#fdf3f3}
+.btn.ghost{background:var(--paper2);border-color:transparent}
+
+/* ============ 今日打卡 ============ */
+.hero{background:linear-gradient(150deg,#fdfcfb,#f7f6f3 60%,#f0efea);color:#1c1c1c;border:1px solid #e6e4dd;padding:20px 18px;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-40px;right:-30px;width:170px;height:170px;border-radius:50%;background:radial-gradient(circle,rgba(216,31,31,.08),transparent 65%)}
+.hero .day-tag{margin-bottom:8px}
+.hero .day-title{font-size:17px;font-weight:800;display:flex;align-items:center;gap:8px;flex-wrap:wrap;color:#1c1c1c}
+.hero .day-big{font-size:26px;font-weight:800;line-height:1.45;margin-top:6px;color:#1c1c1c}
+.hero .day-desc{font-size:12.5px;color:var(--ink2);margin-top:6px}
+.hero-acts{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.hero-acts .btn{flex:1;min-width:120px;border:none}
+.hero-acts .btn.light{background:var(--paper2);color:var(--ink);border:1px solid var(--line)}
+.hero-acts .btn.gold{background:linear-gradient(135deg,#e63b3b,#b81f1f);color:#fff;box-shadow:0 4px 14px rgba(216,31,31,.3)}
+.routine{display:flex;gap:8px;margin-top:14px}
+.routine .ri{flex:1;background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:8px 6px;text-align:center}
+.routine .ri b{display:block;font-size:14.5px;color:var(--accent)}
+.routine .ri span{font-size:10.5px;color:var(--ink2)}
+.today-plan div.today-plan-item{display:flex;align-items:center;gap:10px;padding:10px 4px;border-bottom:1px dashed var(--line)}
+.today-plan div.today-plan-item:last-child{border-bottom:none}
+.tp-c{width:24px;height:24px;border-radius:8px;border:2px solid #d0cfc8;background:#fff;flex:none;position:relative;transition:.15s}
+.tp-c.done{background:var(--green);border-color:var(--green)}
+.tp-c.done::after{content:"✓";color:#fff;font-size:14px;font-weight:800;position:absolute;left:4px;top:-2px}
+.tp-b{flex:1;min-width:0}
+.tp-b b{font-size:13.5px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.tp-b p{font-size:12px;color:var(--ink2);margin-top:1px}
+.mini{font-size:10px;color:var(--accent-d);background:var(--accent-soft);border-radius:8px;padding:0 7px;font-weight:700}
+.mini.blu{color:var(--blue);background:var(--blue-soft)}
+.mini.grn{color:var(--green);background:var(--green-soft)}
+.wk-strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(74px,1fr));gap:7px;margin-top:12px}
+.wk{background:var(--paper2);border:1px solid var(--line);border-radius:12px;padding:7px;text-align:center;transition:.15s}
+.wk.on{border-color:var(--green);background:var(--green-soft)}
+.wk.on b{color:var(--green)}
+.wk b{display:block;font-size:11.5px;color:var(--accent-d);font-weight:800}
+.wk span{font-size:10px;color:var(--ink2)}
+.mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.ms{background:var(--paper2);border:1px solid var(--line);border-radius:14px;padding:10px 6px;text-align:center}
+.ms b{display:block;font-size:17px;color:var(--accent)}
+.ms span{font-size:10.5px;color:var(--ink2)}
+
+/* ============ 清单打卡 ============ */
+.fbar{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.fbar select{flex:1;min-width:130px;background:var(--paper);border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;font-size:13px;appearance:none;-webkit-appearance:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path d="M1 1l5 5 5-5" stroke="%23a8a29a" stroke-width="2" fill="none" stroke-linecap="round"/></svg>');background-repeat:no-repeat;background-position:right 12px center}
+.fbar .cnt{margin-left:auto;font-size:12px;color:var(--ink2);align-self:center;white-space:nowrap;background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:6px 13px}
+.cat{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--paper);box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
+.cat-head{padding:14px 46px 14px 15px;background:linear-gradient(180deg,var(--paper),var(--paper2));border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px;flex-wrap:wrap;cursor:pointer;position:relative;transition:background .18s}
+.cat-head:active{background:var(--paper3)}
+.cat-head .ct{font-size:14px;font-weight:800;flex:1;min-width:150px;line-height:1.35}
+.cat-head .cp{font-size:11px;color:var(--ink2);background:var(--paper3);border-radius:20px;padding:3px 10px;font-weight:700}
+.cat-head .cn{width:100%;font-size:11.5px;color:var(--ink2);margin-top:2px}
+.cat-body{display:none;padding:4px 12px 10px}
+.cat.open .cat-body{display:block;animation:rise .22s ease}
+.expand-arrow{position:absolute;right:13px;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;background:var(--paper3);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--ink2);transition:.2s}
+.cat.open .expand-arrow{background:var(--accent-soft);color:var(--accent-d);transform:translateY(-50%) rotate(180deg)}
+.ir{display:flex;align-items:center;gap:8px;padding:9px 2px;border-bottom:1px dashed var(--line)}
+.ir:last-child{border-bottom:none}
+.ir .nm{flex:1;min-width:0}
+.ir .nm b{font-size:13.5px;font-weight:700}
+.ir .nm small{display:block;font-size:10.5px;color:var(--ink3);font-weight:400;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ir .exp{flex:none;width:30px;height:30px;border-radius:50%;background:var(--paper2);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--ink2);transition:.2s}
+.ir .exp.open{transform:rotate(180deg);background:var(--accent-soft);color:var(--accent-d);border-color:var(--accent-soft)}
+.ckb{display:inline-flex;align-items:center;gap:3px;font-size:11px;color:var(--ink2);background:var(--paper2);border:1px solid var(--line);border-radius:9px;padding:4px 8px;transition:.13s;user-select:none;touch-action:manipulation}
+.ckb .bx{width:13px;height:13px;border-radius:4px;border:1.5px solid #c9c7c0;background:#fff;display:inline-block;flex:none;position:relative}
+.ckb.on{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+.ckb.on .bx{background:var(--green);border-color:var(--green)}
+.ckb.on .bx::after{content:"✓";color:#fff;font-size:10px;font-weight:900;position:absolute;left:2px;top:-2.5px}
+.ir-checks{display:flex;gap:5px;flex-wrap:wrap}
+.sub-box{margin:2px 0 4px 14px;padding:6px 4px 2px 12px;border-left:2px solid var(--line);display:none}
+.sub-box.open{display:block;animation:rise .25s ease}
+.sub-box .ir{padding:7px 2px}
+.sub-box .ir .nm b{font-size:12.5px;color:var(--ink)}
+.ir .all-badge{font-size:9.5px;font-weight:800;color:var(--gold);background:var(--gold-soft);border-radius:8px;padding:1px 6px}
+.subgrp-title{margin:8px 2px 2px;font-size:12px;font-weight:800;color:var(--accent-d);display:flex;align-items:center;gap:6px}
+.subgrp-title::before{content:"";width:3px;height:12px;border-radius:2px;background:linear-gradient(180deg,#e03a3a,#b81f1f)}
+.subgrp-title.mt{margin-top:12px}
+.subgrp-note{font-size:10.5px;color:var(--ink3);margin:0 2px 4px;padding-left:9px}
+.ir .ir-checks .all-badge{margin-top:2px}
+
+/* ============ 计划 ============ */
+.plan-f{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
+.pg{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:12px 13px;box-shadow:var(--shadow);margin-bottom:10px;display:flex;align-items:center;gap:12px;transition:.15s}
+.pg:active{transform:scale(.985)}
+.pg-n{width:42px;height:42px;border-radius:50%;background:var(--paper3);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:var(--accent-d);flex:none;position:relative}
+.pg-n.done{background:linear-gradient(135deg,#6fae7d,#4e9a5f);color:#fff;box-shadow:0 3px 10px rgba(78,154,95,.28)}
+.pg-b{flex:1;min-width:0}
+.pg-b .pt{font-size:13.5px;font-weight:700;line-height:1.4}
+.pg-b .ps{font-size:11px;color:var(--ink2);margin-top:2px;line-height:1.5}
+.pg-go{flex:none}
+.stage{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--paper);box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
+.stage-head{width:100%;display:flex;align-items:center;gap:10px;padding:13px 15px;background:linear-gradient(180deg,var(--paper),var(--paper2));border-bottom:1px solid transparent;cursor:pointer;text-align:left;transition:background .18s}
+.stage.open .stage-head{border-bottom-color:var(--line)}
+.stage-head:active{background:var(--paper3)}
+.stage-head .st-t{flex:1;min-width:0}
+.stage-head .st-t b{display:block;font-size:14px;font-weight:800}
+.stage-head .st-t span{font-size:11px;color:var(--ink2)}
+.stage-head .st-cp{flex:none;font-size:11px;color:var(--ink2);background:var(--paper3);border-radius:20px;padding:3px 10px;font-weight:700}
+.stage-head .st-arrow{flex:none;width:26px;height:26px;border-radius:50%;background:var(--paper3);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--ink2);transition:.2s}
+.stage.open .stage-head .st-arrow{background:var(--accent-soft);color:var(--accent-d);transform:rotate(180deg)}
+.stage-body{display:none;padding:10px 12px}
+.stage.open .stage-body{display:block;animation:rise .22s ease}
+
+/* ============ 知识 ============ */
+.kfold{border:1px solid var(--line);border-radius:var(--r-md);background:var(--paper);margin-bottom:10px;overflow:hidden}
+.kfold-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:12px 14px;background:var(--paper2);border:none;font-size:13.5px;font-weight:800;color:var(--ink);text-align:left;transition:.15s}
+.kfold-head:active{background:var(--paper3)}
+.kfold-head em{font-style:normal;font-size:11px;color:var(--ink3);transition:.2s;flex:none}
+.kfold.open .kfold-head em{transform:rotate(180deg);color:var(--accent)}
+.kfold-body{display:none;padding:10px 14px 12px}
+.kfold.open .kfold-body{display:block;animation:rise .22s ease}
+.kfold.grp>.kfold-head{background:linear-gradient(180deg,var(--paper2),var(--paper3));font-size:14px}
+.kfold.grp>.kfold-head span::before{content:"◆";color:var(--accent);font-size:10px;margin-right:7px;vertical-align:1px}
+.ksub{border:1px solid var(--line);border-radius:12px;margin-bottom:8px;overflow:hidden;background:var(--paper)}
+.ksub:last-child{margin-bottom:0}
+.ksub-head{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;background:var(--paper2);border:none;font-size:12.5px;font-weight:700;color:var(--ink);text-align:left;transition:.15s}
+.ksub-head:active{background:var(--paper3)}
+.ksub-head em{font-style:normal;font-size:10px;color:var(--ink3);transition:.2s;flex:none}
+.ksub.open .ksub-head em{transform:rotate(180deg);color:var(--accent)}
+.ksub.open .ksub-head{color:var(--accent-d)}
+.ksub-body{display:none;padding:8px 12px 10px;border-top:1px dashed var(--line)}
+.ksub.open .ksub-body{display:block;animation:rise .2s ease}
+.klist{list-style:none}
+.klist li{display:flex;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:12.5px;align-items:flex-start}
+.klist li:last-child{border-bottom:none}
+.klist .kn{flex:none;background:var(--accent-soft);color:var(--accent-d);font-weight:800;font-size:10.5px;border-radius:8px;padding:2px 8px;margin-top:1px;white-space:nowrap}
+.klist .blu{background:var(--blue-soft);color:var(--blue)}
+.klist .grn{background:var(--green-soft);color:var(--green)}
+.prio{border:1px solid var(--line);border-radius:14px;padding:11px 13px;margin-bottom:10px;background:var(--paper2)}
+.prio .ph{font-size:13px;font-weight:800;margin-bottom:3px}
+.prio p{font-size:12px;color:var(--ink2)}
+.prio-note{margin-top:12px;font-size:12px;color:var(--accent-d);background:var(--accent-soft);border-radius:12px;padding:9px 12px;line-height:1.6}
+.tq-grid{display:grid;grid-template-columns:1fr;gap:8px}
+@media(min-width:560px){.tq-grid{grid-template-columns:1fr 1fr}}
+.tq{border:1px solid var(--line);border-radius:12px;padding:9px 11px;background:var(--paper2)}
+.tq h5{font-size:13px;font-weight:800;color:var(--accent-d);margin-bottom:5px;display:flex;align-items:center;gap:6px}
+.tq h5 i{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
+.tq .r{font-size:11.5px;color:var(--ink2);line-height:1.55;display:flex;gap:5px}
+.tq .r b{flex:none;color:var(--ink3);font-weight:700}
+.bp-tbl{width:100%;border-collapse:collapse;font-size:12px}
+.bp-tbl th{background:var(--paper3);color:var(--ink3);font-weight:700;font-size:11px;padding:6px 8px;text-align:left;border-bottom:1px solid var(--line);position:sticky;top:0}
+.bp-tbl td{padding:5.5px 8px;border-bottom:1px dashed var(--line);color:var(--ink2)}
+.bp-tbl td:first-child{font-weight:800;color:var(--accent);width:34px;text-align:center}
+.bp-tbl td:nth-child(2){width:64px;color:var(--ink3);font-size:11px}
+.bp-scroll{max-height:340px;overflow-y:auto;border:1px solid var(--line);border-radius:12px}
+.uni-tags{display:flex;flex-wrap:wrap;gap:7px;padding-top:2px}
+.uni-tags span{background:var(--accent-soft);color:var(--accent-d);font-size:12px;font-weight:700;border-radius:20px;padding:5px 12px}
+
+/* ============ 统计 ============ */
+.scards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
+.sc{background:var(--paper);border:1px solid var(--line);border-radius:var(--r-md);padding:13px;text-align:center;box-shadow:var(--shadow)}
+.sc b{display:block;font-size:22px;background:linear-gradient(135deg,#d81f1f,#a31515);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.3}
+.sc.gold b{background:linear-gradient(135deg,#c9963a,#b3852e);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sc.grn b{background:linear-gradient(135deg,#5fae6f,#4e9a5f);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sc span{font-size:11.5px;color:var(--ink2)}
+.bar-r{display:flex;align-items:center;gap:8px;margin-bottom:9px;font-size:11.5px}
+.bar-r .bl{width:58px;color:var(--ink2);flex:none}
+.bar-r .bt{flex:1;height:11px;background:var(--paper3);border-radius:6px;overflow:hidden}
+.bar-r .bf{height:100%;background:linear-gradient(90deg,#e8533a,#b81f1f);border-radius:6px;min-width:0}
+.bar-r .bn{width:38px;text-align:right;color:var(--ink2);flex:none}
+.heat{display:grid;grid-template-columns:repeat(10,1fr);gap:5px}
+.heat i{aspect-ratio:1;border-radius:7px;background:var(--paper3);display:flex;align-items:center;justify-content:center;font-size:9.5px;color:var(--ink3);font-style:normal;font-weight:700}
+.heat i.done{background:linear-gradient(135deg,#5fae6f,#4e9a5f);color:#fff}
+.heat i.part{background:linear-gradient(135deg,#e63b3b,#b81f1f);color:#fff}
+.heat i.future{background:transparent;border:1px dashed var(--line);color:var(--ink3)}
+.heat i.today{outline:2px solid var(--accent);outline-offset:2px}
+.hr{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px dashed var(--line);font-size:12.5px}
+.hr:last-child{border-bottom:none}
+.hr .hd{font-weight:800;color:var(--accent-d);min-width:64px;flex:none}
+.hr .hb{flex:1;color:var(--ink2);min-width:0}
+.hr .hn{font-style:italic;margin-top:2px;font-size:11.5px}
+.log-fold{overflow:hidden}
+.log-head{width:100%;display:flex;align-items:center;gap:10px;background:none;border:none;padding:0;cursor:pointer}
+.log-head h4{font-size:14.5px;font-weight:800;display:flex;align-items:center;gap:8px}
+.log-arrow{font-style:normal;font-size:11px;color:var(--ink3);transition:.2s;flex:none}
+.log-fold.open .log-arrow{transform:rotate(180deg);color:var(--accent)}
+.log-body{overflow:hidden}
+.log-fold:not(.open) .log-body{display:none}
+
+/* ============ 弹窗 ============ */
+.mbg{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:flex;align-items:flex-end;justify-content:center;animation:fade .2s ease}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.mdl{background:var(--paper);width:100%;max-width:520px;border-radius:24px 24px 0 0;padding:22px 20px calc(20px + env(safe-area-inset-bottom));animation:sheet .3s cubic-bezier(.22,.8,.36,1);max-height:88vh;overflow:auto}
+@keyframes sheet{from{transform:translateY(60px);opacity:.4}to{transform:none;opacity:1}}
+.mdl h3{font-size:17px;font-weight:800}
+.mdl .m-sub{color:var(--ink2);font-size:12.5px;margin:4px 0 14px}
+.mfield{margin-bottom:12px}
+.mfield label{display:block;font-size:12px;color:var(--ink2);margin-bottom:5px;font-weight:600}
+.mfield textarea{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;font-size:13.5px;resize:vertical;min-height:76px;background:#fff;color:var(--ink)}
+.mfield textarea:focus{outline:none;border-color:var(--accent)}
+.m-acts{display:flex;gap:10px;margin-top:16px}
+.m-acts .btn{flex:1}
+.toast{position:fixed;left:50%;bottom:calc(86px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(16px);background:rgba(20,18,16,.96);color:#f2f0ec;padding:11px 20px;border-radius:40px;font-size:13px;z-index:300;opacity:0;transition:.28s;pointer-events:none;box-shadow:var(--shadow-lg);white-space:nowrap;max-width:88vw;overflow:hidden;text-overflow:ellipsis;backdrop-filter:blur(6px)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ============ 底部导航 ============ */
+.tabbar{position:fixed;left:0;right:0;bottom:0;z-index:150;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid #e0e0da;padding:6px 8px calc(6px + env(safe-area-inset-bottom));display:flex;justify-content:space-around;box-shadow:0 -4px 20px rgba(0,0,0,.05)}
+.tab{flex:1;max-width:110px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:14px;color:var(--ink3);font-size:10px;font-weight:600;transition:.15s}
+.tab .ic{width:24px;height:24px;display:flex;align-items:center;justify-content:center}
+.tab.active{color:var(--accent)}
+.tab.active .ic{background:var(--accent-soft);border-radius:9px}
+.tab.active .ic svg{stroke:var(--accent)}
+.tab .ic svg{stroke:var(--ink3)}
+@media(min-width:720px){
+  .tabbar{left:50%;transform:translateX(-50%);width:100%;max-width:720px;border-radius:0}
+}
+
+/* ============ 响应式微调 ============ */
+@media(max-width:380px){
+  .ckb{font-size:10px;padding:3px 6px}
+  .ir-checks{gap:4px}
+  .heat{grid-template-columns:repeat(8,1fr)}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hd-inner">
+    <div class="brand">
+      <div class="logo">✎</div>
+      <div>
+        <h1>央美产品手绘打卡</h1>
+        <p>结构 → 灰阶 → 材质 → 默写，画到能默写为止</p>
+      </div>
+    </div>
+    <div class="hd-badges">
+      <span class="badge"><span class="dot"></span>距考研 <b id="hd-exam">--</b> 天</span>
+      <span class="badge">连续 <b id="hd-streak">0</b> 天</span>
+      <span class="badge">进度 <b id="hd-today">0</b>/<b id="hd-total">55</b></span>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- ============ 今日打卡 ============ -->
+  <section class="view show" id="view-today">
+    <div class="card hero" id="hero-card">
+      <div class="day-tag"><span class="tag blu" id="today-week">第1周</span> <span class="tag mid" id="today-theme-tag">主题</span></div>
+      <div class="day-title">第 <b id="today-daynum">1</b> / <span id="today-total">55</span> 天</div>
+      <div class="day-big" id="today-content">——</div>
+      <div class="day-desc" id="today-desc">今日练习内容</div>
+      <div class="routine" id="today-routine"></div>
+      <div class="hero-acts">
+        <button class="btn light" id="btn-prev">← 前一天</button>
+        <button class="btn gold" id="btn-today-save" data-primary-action>今日打卡</button>
+        <button class="btn light" id="btn-next">后一天 →</button>
+      </div>
+    </div>
+    <div class="card">
+      <h4>今日练习清单 <span class="mini blu">点勾即记</span></h4>
+      <div class="today-plan" id="today-plan"></div>
+    </div>
+    <div class="card">
+      <h4>本周进度 <span class="tag mid" id="week-label2">第1周</span></h4>
+      <div class="pbar"><div class="pfill" id="week-progress" style="width:0%"></div></div>
+      <div class="wk-strip" id="week-strip"></div>
+    </div>
+    <div class="card">
+      <h4>整体进度</h4>
+      <div class="pbar"><div class="pfill green" id="overall-progress" style="width:0%"></div></div>
+      <div class="mini-stats" style="margin-top:12px">
+        <div class="ms"><b id="ms-days">0/55</b><span>完成天数</span></div>
+        <div class="ms"><b id="ms-items">0%</b><span>练习项</span></div>
+        <div class="ms"><b id="ms-checks">0</b><span>阶段勾选</span></div>
+      </div>
+      <div class="prio-note" id="exam-note" style="margin-top:12px"></div>
+    </div>
+  </section>
+
+  <!-- ============ 练习清单 ============ -->
+  <section class="view" id="view-checkin">
+    <div class="vh">
+      <h2>练习清单</h2>
+      <div class="sub">点开带 ▾ 的条目展开细分小项 · 每项走结构/灰阶/材质/默写</div>
+    </div>
+    <div class="fbar">
+      <select id="ck-filter">
+        <option value="all">全部分类</option>
+        <option value="solo">单体练习</option>
+        <option value="combo">组合练习</option>
+        <option value="bionic">仿生物 / 生物单体</option>
+        <option value="themes">六大主题主体物</option>
+      </select>
+      <select id="ck-group">
+        <option value="all">全部组别</option>
+      </select>
+      <span class="cnt" id="ck-count">0</span>
+    </div>
+    <div id="ck-solo"></div>
+    <div id="ck-combo" class="hidden"></div>
+    <div id="ck-bionic" class="hidden"></div>
+    <div id="ck-themes" class="hidden"></div>
+  </section>
+
+  <!-- ============ 训练计划 ============ -->
+  <section class="view" id="view-plan">
+    <div class="vh">
+      <h2>训练计划</h2>
+      <div class="sub" id="plan-sub">55 天冲刺 · 六大阶段 · 点阶段展开</div>
+    </div>
+    <div class="plan-f">
+      <button class="btn small" data-pf="all">全部</button>
+      <button class="btn small" data-pf="undone">未完成</button>
+      <button class="btn small" data-pf="done">已完成</button>
+      <span class="cnt" style="margin-left:auto;font-size:12px;color:var(--ink2)" id="plan-count"></span>
+    </div>
+    <div id="plan-list"></div>
+  </section>
+
+  <!-- ============ 训练知识 ============ -->
+  <section class="view" id="view-knowledge">
+    <div class="vh">
+      <h2>训练知识</h2>
+      <div class="sub">规则、步骤与优先级速查 · 点标题展开</div>
+    </div>
+    <!-- 基础通用 -->
+    <div class="kfold grp open">
+      <button class="kfold-head"><span>基础通用 · 步骤 / 标准 / 节奏</span><em>▾</em></button>
+      <div class="kfold-body">
+        <div class="ksub open">
+          <button class="ksub-head"><span>组合练习通用步骤</span><em>▾</em></button>
+          <div class="ksub-body"><ul class="klist" id="k-steps"></ul></div>
+        </div>
+        <div class="ksub">
+          <button class="ksub-head"><span>马克笔精微塑造步骤</span><em>▾</em></button>
+          <div class="ksub-body"><ul class="klist" id="k-mkr"></ul></div>
+        </div>
+        <div class="ksub">
+          <button class="ksub-head"><span>检查标准</span><em>▾</em></button>
+          <div class="ksub-body"><ul class="klist" id="k-checks"></ul></div>
+        </div>
+        <div class="ksub">
+          <button class="ksub-head"><span>训练节奏（周计划）</span><em>▾</em></button>
+          <div class="ksub-body"><ul class="klist" id="k-weeks"></ul></div>
+        </div>
+        <div class="ksub">
+          <button class="ksub-head"><span>每日时间分配</span><em>▾</em></button>
+          <div class="ksub-body"><div id="k-routine-card"></div></div>
+        </div>
+        <div class="ksub">
+          <button class="ksub-head"><span>练习优先级</span><em>▾</em></button>
+          <div class="ksub-body"><div id="k-priority"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 仿生 -->
+    <div class="kfold grp">
+      <button class="kfold-head"><span>仿生物 / 生物单体 · 方法 / 材质 / 节奏</span><em>▾</em></button>
+      <div class="kfold-body">
+        <div class="ksub open">
+          <button class="ksub-head"><span>仿生练习方法</span><em>▾</em></button>
+          <div class="ksub-body"><ul class="klist" id="k-bionic-method"></ul></div>
+        </div>
+        <div class="ksub">
+          <button class="ksub-head"><span>材质表现要点</span><em>▾</em></button>
+          <div class="ksub-body"><ul class="klist" id="k-bionic-mat"></ul></div>
+        </div>
+        <div class="ksub">
+          <button class="ksub-head"><span>训练节奏</span><em>▾</em></button>
+          <div class="ksub-body"><div id="k-bionic-rhythm"></div></div>
+        </div>
+        <div class="ksub">
+          <button class="ksub-head"><span>仿生 30 天完整训练表（参考）</span><em>▾</em></button>
+          <div class="ksub-body"><div class="bp-scroll" id="k-bionic-plan"></div></div>
+        </div>
+        <div class="ksub">
+          <button class="ksub-head"><span>优先级 & 万能仿生单体</span><em>▾</em></button>
+          <div class="ksub-body"><div id="k-bionic-priority"></div><div class="uni-tags" id="k-bionic-uni" style="margin-top:10px"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 六大主题 -->
+    <div class="kfold grp">
+      <button class="kfold-head"><span>六大主题主体物 · 速查 / 安排 / 优先级</span><em>▾</em></button>
+      <div class="kfold-body">
+        <div class="ksub open">
+          <button class="ksub-head"><span>六大主题速查表</span><em>▾</em></button>
+          <div class="ksub-body"><div class="tq-grid" id="k-theme-table"></div></div>
+        </div>
+        <div class="ksub">
+          <button class="ksub-head"><span>训练安排</span><em>▾</em></button>
+          <div class="ksub-body"><ul class="klist" id="k-theme-plan"></ul></div>
+        </div>
+        <div class="ksub">
+          <button class="ksub-head"><span>优先级 & 万能主体物</span><em>▾</em></button>
+          <div class="ksub-body"><div id="k-theme-priority"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 未排入计划 -->
+    <div class="kfold grp">
+      <button class="kfold-head"><span>未排入计划的训练内容 · 自行补练</span><em>▾</em></button>
+      <div class="kfold-body">
+        <div class="prio-note" id="k-unplanned-note" style="margin-top:0;margin-bottom:10px"></div>
+        <div id="k-unplanned"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 统计复盘 ============ -->
+  <section class="view" id="view-stats">
+    <div class="vh">
+      <h2>统计复盘</h2>
+      <div class="sub">数据保存在本机浏览器 · 可导出 CSV</div>
+    </div>
+    <div class="scards">
+      <div class="sc"><b id="st-days">0</b><span>已打卡天数</span></div>
+      <div class="sc gold"><b id="st-streak">0</b><span>最长连续</span></div>
+      <div class="sc grn"><b id="st-items">0</b><span>练习项进度</span></div>
+      <div class="sc"><b id="st-checks">0</b><span>阶段勾选总数</span></div>
+      <div class="sc grn" style="grid-column:1/-1"><b id="st-percent">0%</b><span>整体完成度（<span id="st-total">55</span> 天）</span></div>
+    </div>
+    <div class="card">
+      <h4>各周主题完成分布</h4>
+      <div id="st-weekbars"></div>
+    </div>
+    <div class="card">
+      <h4>打卡热力图 <span class="mini" style="margin-left:auto">绿=完成 · 红=部分完成</span></h4>
+      <div class="heat" id="st-heat"></div>
+    </div>
+    <div class="card log-fold">
+      <button class="log-head" id="log-head">
+        <h4 style="margin-bottom:0;flex:0 1 auto">训练日志</h4>
+        <span class="log-arrow">▾</span>
+        <span class="btn small danger" id="btn-clear-log" style="margin-left:auto">清空</span>
+      </button>
+      <div id="st-log" class="log-body"></div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn primary" id="btn-export-csv" style="flex:1" data-primary-action>导出打卡 CSV</button>
+      <button class="btn danger small" id="btn-reset">重置数据</button>
+    </div>
+  </section>
+</main>
+
+<!-- 底部导航 -->
+<nav class="tabbar">
+  <button class="tab active" data-view="today"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M8 2v4M16 2v4M3 9h18" /></svg></span>今日</button>
+  <button class="tab" data-view="checkin"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 20l4-4M4 13l4-4M4 6l4-4M11 4h9M11 11h9M11 18h9"/></svg></span>清单</button>
+  <button class="tab" data-view="plan"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11h6M9 7h6M9 15h4"/><rect x="3" y="3" width="18" height="18" rx="4"/></svg></span>计划</button>
+  <button class="tab" data-view="knowledge"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 012-2h13.5a.5.5 0 01.5.5v13a.5.5 0 01-.5.5H6a2 2 0 00-2 2z"/><path d="M4 19a2 2 0 002 2h14"/></svg></span>知识</button>
+  <button class="tab" data-view="stats"><span class="ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M4 20V10M10 20V4M16 20v-7M20 20h-17"/></svg></span>统计</button>
+</nav>
+
+<!-- 每日打卡弹窗 -->
+<div class="mbg hidden" id="modal-daily">
+  <div class="mdl">
+    <h3 id="md-title">今日复盘</h3>
+    <div class="m-sub" id="md-sub">记录问题、改进与心得</div>
+    <div class="mfield"><label for="md-note">复盘备注（问题与改进）</label>
+      <textarea id="md-note" placeholder="例：圆柱椭圆透视还是不准，明天加练椭圆 10 分钟……"></textarea>
+    </div>
+    <div class="mfield"><label>今日阶段勾选</label>
+      <div id="md-checks" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+    </div>
+    <div class="m-acts">
+      <button class="btn" id="md-cancel">取消</button>
+      <button class="btn primary" id="md-save" data-primary-action>保存打卡</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* 央美产品手绘打卡 v2 · 清单数据（含子项展开与马克笔精微塑造） */
+window.SKETCH_DATA = (function () {
+  var D = {
+    /* 四个阶段打勾字段：s=结构 g=灰阶 m=材质 mem=默写 a=变角度 */
+    CHECK_FIELDS: [
+      ['s', '结构'],
+      ['g', '灰阶'],
+      ['m', '材质'],
+      ['mem', '默写'],
+      ['a', '变角度']
+    ],
+    TIP_MAIN: ['s', 'g', 'm', 'mem'],
+
+    solo: [
+      {
+        id: 'A', title: 'A · 基础几何与结构（★必练）', star: '必练',
+        note: '重点：三面五调、透视统一、倒角切点、分模线。点开每组展开细分小项逐一打卡。',
+        items: [
+          { k: 'sq', n: '方体', d: '正方体、长方体、倒角方体、圆角方体、多面体、穿插方体', children: [
+            { k: 'sq_cube', n: '正方体', d: '三面五调、透视统一' },
+            { k: 'sq_cuboid', n: '长方体', d: '拉长比例、两点透视' },
+            { k: 'sq_chamfer', n: '倒角方体', d: '倒角切点位置、光滑过渡' },
+            { k: 'sq_round', n: '圆角方体', d: '圆角弧度一致、分模线' },
+            { k: 'sq_poly', n: '多面体', d: '棱面分割、透视和谐' },
+            { k: 'sq_inter', n: '穿插方体', d: '穿插遮挡、结构穿插合理' }
+          ] },
+          { k: 'sp', n: '球体', d: '正球、椭球、半球、切面球', children: [
+            { k: 'sp_sphere', n: '正球', d: '弧线笔触、环形明暗交界线' },
+            { k: 'sp_ellipse', n: '椭球', d: '长轴短轴、重心稳定' },
+            { k: 'sp_half', n: '半球', d: '切口椭圆、反光位置' },
+            { k: 'sp_cut', n: '切面球', d: '切面视向、弧度承接' }
+          ] },
+          { k: 'cy', n: '圆柱 / 圆锥', d: '直圆柱、斜圆柱、圆锥、圆台、管状、螺纹柱', children: [
+            { k: 'cy_cyl', n: '直圆柱', d: '两端椭圆透视、直排线' },
+            { k: 'cy_slant', n: '斜圆柱', d: '倾斜轴心、承接面' },
+            { k: 'cy_cone', n: '圆锥', d: '顶点与底椭圆' },
+            { k: 'cy_frustum', n: '圆台', d: '大小椭圆同心' },
+            { k: 'cy_tube', n: '管状', d: '内外壁厚、透视' },
+            { k: 'cy_thread', n: '螺纹柱', d: '螺旋线走势、疏密' }
+          ] },
+          { k: 'co', n: '组合体', d: '方+柱、球+柱、锥+柱、切割、凹陷凸起、混接面', children: [
+            { k: 'co_cylbox', n: '方 + 柱', d: '先大块面、穿插咬合' },
+            { k: 'co_cylsphere', n: '球 + 柱', d: '相贯线、弧度过渡' },
+            { k: 'co_cylcone', n: '锥 + 柱', d: '结构连接自然' },
+            { k: 'co_cut', n: '切割体', d: '切面透视' },
+            { k: 'co_cave', n: '凹陷 / 凸起', d: '光影转折' },
+            { k: 'co_blend', n: '混接面', d: '曲面过渡顺滑' }
+          ] },
+          { k: 'el', n: '产品结构元素', d: '分模线、装配线、按键、旋钮、散热孔、格栅、凹槽、孔洞、转轴、线缆接口、屏幕边缘、螺丝、铆钉', children: [
+            { k: 'el_split', n: '分模线 / 装配线', d: '透视随曲面走、不能贴上去' },
+            { k: 'el_btn', n: '按键 / 旋钮', d: '同心圆、浮雕感' },
+            { k: 'el_vent', n: '散热孔 / 格栅', d: '阵列透视、疏密节奏' },
+            { k: 'el_groove', n: '凹槽 / 孔洞', d: '深度与内壁' },
+            { k: 'el_hinge', n: '转轴 / 线缆接口', d: '机械连接细节' },
+            { k: 'el_bezel', n: '屏幕边缘 / 螺丝 / 铆钉', d: '精密分模线、小细节' }
+          ] }
+        ]
+      },
+      {
+        id: 'B', title: 'B · 工业产品单体（按类别）', star: '必练',
+        subs: [
+          { t: '手持工具类（★必练）', note: '重点：手握曲面、橡胶握把、按键、分模线、倒角。', items: [
+            { k: 'b_drill', n: '电钻', d: '整体结构', children: [
+              { k: 'b_drill_body', n: '机身', d: '主曲面透视' },
+              { k: 'b_drill_grip', n: '橡胶握把', d: '纹理、捏合比例' },
+              { k: 'b_drill_chuck', n: '钻头夹头', d: '同心圆、分模线' },
+              { k: 'b_drill_detail', n: '按键 / 散热孔', d: '细节与曲面随形' }
+            ] },
+            { k: 'b_scrw', n: '螺丝刀' },
+            { k: 'b_razor', n: '剃须刀' },
+            { k: 'b_dryer', n: '吹风机' },
+            { k: 'b_pad', n: '游戏手柄' },
+            { k: 'b_mouse', n: '鼠标' },
+            { k: 'b_remote', n: '遥控器' },
+            { k: 'b_flash', n: '手电筒' }
+          ] },
+          { t: '家电类（★必练）', note: '重点：圆柱/方体组合、塑料与金属对比、散热孔、屏幕。', items: [
+            { k: 'b_kettle', n: '水壶', d: '整体器型', children: [
+              { k: 'b_kettle_body', n: '壶身', d: '旋转体、弧度' },
+              { k: 'b_kettle_spout', n: '壶嘴', d: '出水流线' },
+              { k: 'b_kettle_handle', n: '把手', d: '手握空间' },
+              { k: 'b_kettle_lid', n: '壶盖', d: '椭圆与分模线' }
+            ] },
+            { k: 'b_lamp', n: '台灯' },
+            { k: 'b_speaker', n: '音箱' },
+            { k: 'b_coffee', n: '咖啡机' },
+            { k: 'b_blender', n: '搅拌机' },
+            { k: 'b_cooker', n: '电饭煲' },
+            { k: 'b_fan', n: '风扇' },
+            { k: 'b_humid', n: '加湿器' },
+            { k: 'b_vacuum', n: '吸尘器' }
+          ] },
+          { t: '穿戴类（★必练）', note: '重点：有机曲面、皮革/布料/塑料、椭圆、褶皱。', items: [
+            { k: 'b_ear', n: '耳机', d: '整体形态', children: [
+              { k: 'b_ear_cavity', n: '腔体', d: '有机曲面' },
+              { k: 'b_ear_cushion', n: '耳罩 / 耳塞', d: '皮革/橡胶弹性' },
+              { k: 'b_ear_band', n: '头梁 / 线缆', d: '结构走向' }
+            ] },
+            { k: 'b_watch', n: '手表' },
+            { k: 'b_vr', n: 'VR 头显' },
+            { k: 'b_shoe', n: '运动鞋' },
+            { k: 'b_bag', n: '背包' },
+            { k: 'b_glass', n: '眼镜' },
+            { k: 'b_helm', n: '头盔' }
+          ] },
+          { t: '数码类（★必练）', note: '重点：精密分模线、屏幕发光、金属与玻璃、镜头同心圆。', items: [
+            { k: 'b_cam', n: '相机', d: '整体', children: [
+              { k: 'b_cam_body', n: '机身', d: '方中带圆、握持处' },
+              { k: 'b_cam_lens', n: '镜头', d: '同心圆、玻璃反光' },
+              { k: 'b_cam_dial', n: '按键 / 拨盘', d: '精密分模线' },
+              { k: 'b_cam_screen', n: '取景屏', d: '屏幕发光' }
+            ] },
+            { k: 'b_lens', n: '镜头' },
+            { k: 'b_phone', n: '手机' },
+            { k: 'b_laptop', n: '笔记本电脑' },
+            { k: 'b_kbd', n: '键盘' },
+            { k: 'b_drone', n: '无人机' },
+            { k: 'b_gimbal', n: '稳定器' }
+          ] },
+          { t: '交通类（☆进阶）', note: '重点：大曲面、混接面、车轮椭圆、金属与塑料。', items: [
+            { k: 'b_car', n: '汽车部件' }, { k: 'b_moto', n: '摩托车' }, { k: 'b_bike', n: '自行车' },
+            { k: 'b_scooter', n: '滑板车' }, { k: 'b_drone2', n: '无人机' }
+          ] },
+          { t: '家具类（★必练）', note: '重点：透视、结构连接、木材/金属/布料。', items: [
+            { k: 'b_chair', n: '椅子' }, { k: 'b_ltable', n: '台灯' }, { k: 'b_table', n: '桌子' },
+            { k: 'b_sofa', n: '沙发' }, { k: 'b_shelf', n: '书架' }, { k: 'b_night', n: '床头柜' }
+          ] },
+          { t: '厨具类（★必练）', note: '重点：旋转体、椭圆、金属/玻璃/陶瓷/木材。', items: [
+            { k: 'b_pot', n: '锅' }, { k: 'b_cup', n: '杯子' }, { k: 'b_bottle', n: '瓶子' }, { k: 'b_knife', n: '刀' },
+            { k: 'b_board', n: '砧板' }, { k: 'b_tap', n: '水龙头' }
+          ] },
+          { t: '文具类（☆进阶）', note: '重点：小结构、分模线、塑料与金属。', items: [
+            { k: 'b_pen', n: '笔' }, { k: 'b_stapler', n: '订书机' }, { k: 'b_scissor', n: '剪刀' },
+            { k: 'b_tape', n: '胶带座' }, { k: 'b_ruler', n: '尺子' }
+          ] },
+          { t: '医疗 / 工具类（☆进阶）', note: '重点：透明、金属、橡胶、精密结构。', items: [
+            { k: 'b_thermo', n: '体温计' }, { k: 'b_syringe', n: '注射器' }, { k: 'b_steth', n: '听诊器' }, { k: 'b_toolbox', n: '工具箱' }
+          ] },
+          { t: '运动户外类（☆进阶）', note: '重点：曲面、金属扣件、橡胶、布料。', items: [
+            { k: 'b_waterb', n: '水壶' }, { k: 'b_carab', n: '登山扣' }, { k: 'b_helmo', n: '头盔' },
+            { k: 'b_goggle', n: '护目镜' }, { k: 'b_tentl', n: '帐篷灯' }
+          ] }
+        ]
+      },
+      {
+        id: 'C', title: 'C · 有机与自然单体（△选练）', star: '选练',
+        note: '产品方向优先练：手、鞋、衣褶、植物配景。',
+        items: [
+          { k: 'c_hand', n: '手' }, { k: 'c_shoe', n: '鞋' }, { k: 'c_fold', n: '衣褶' }, { k: 'c_plant', n: '植物' },
+          { k: 'c_animal', n: '动物' }, { k: 'c_stone', n: '石头' }, { k: 'c_wave', n: '水波' }, { k: 'c_cloud', n: '云' },
+          { k: 'c_fire', n: '火' }, { k: 'c_smoke', n: '烟' }
+        ]
+      },
+      {
+        id: 'D', title: 'D · 材质专项单体（★必练）', star: '必练', table: true,
+        rows: [
+          { k: 'm_metal', mat: '金属', obj: '勺子、水龙头、相机、工具', pt: '强对比、锐利高光、环境反射' },
+          { k: 'm_glass', mat: '玻璃', obj: '杯子、瓶子、灯泡、镜片', pt: '透光、壁厚、边缘高光、折射' },
+          { k: 'm_plastic', mat: '塑料', obj: '遥控器、玩具、家电', pt: '固有色明确、高光柔和或锐利' },
+          { k: 'm_wood', mat: '木材', obj: '木勺、椅子、桌面、砧板', pt: '暖色、纹理顺结构、年轮' },
+          { k: 'm_leather', mat: '皮革', obj: '鞋、包、沙发、方向盘', pt: '柔和宽高光、缝线、褶皱' },
+          { k: 'm_cloth', mat: '布料', obj: '衣褶、抱枕、背包', pt: '褶皱柔软、过渡柔和' },
+          { k: 'm_cera', mat: '陶瓷', obj: '碗、瓶、茶具', pt: '高光集中、反光清晰、边缘圆润' },
+          { k: 'm_rubber', mat: '橡胶', obj: '轮胎、鞋底、手柄', pt: '哑光、深色、弹性转折' },
+          { k: 'm_paper', mat: '纸 / 纸板', obj: '书本、包装盒', pt: '边缘薄、折痕、厚度' },
+          { k: 'm_screen', mat: '屏幕 / 发光', obj: '手机屏、霓虹灯、车灯', pt: '发光、辉光、暗部、色光' },
+          { k: 'm_aged', mat: '做旧', obj: '划痕、掉漆、锈迹、污渍', pt: '分层、边缘、随机合理' },
+          { k: 'm_comp', mat: '复合材料', obj: '碳纤维、玻璃钢、贴膜', pt: '纹理、反射、边缘' }
+        ]
+      },
+      {
+        id: 'E', title: 'E · 马克笔精微塑造（★必练）', star: '必练',
+        note: '精微塑造：用马克笔交代质感与细节——笔触、高光、渐变、反射。点开展开每个专项。',
+        items: [
+          { k: 'mkr', n: '马克笔基础笔触', d: '平涂、渐变、叠加、扫笔、高光笔', children: [
+            { k: 'mkr_base', n: '平涂均匀运笔', d: '快、稳、不留白边' },
+            { k: 'mkr_grad', n: '渐变过渡', d: '先后再深、趁湿衔接' },
+            { k: 'mkr_over', n: '叠加层次', d: '干后叠色、层次分明' },
+            { k: 'mkr_scan', n: '扫笔 / 点笔', d: '磨砂、颗粒质感' },
+            { k: 'mkr_white', n: '高光笔 / 留白', d: '白笔点提、位置随结构' }
+          ] },
+          { k: 'mkr_smpl', n: '精微质感小样', d: '同一色阶下塑造不同材质', children: [
+            { k: 'mkr_metal', n: '金属小样', d: '锐利高光 + 环境反射' },
+            { k: 'mkr_glass', n: '玻璃小样', d: '透光 + 边缘高光 + 折射' },
+            { k: 'mkr_plastic', n: '塑料小样', d: '柔和 / 锐利高光对比' },
+            { k: 'mkr_wood', n: '木质小样', d: '纹理顺结构、暖色' },
+            { k: 'mkr_leather', n: '皮革小样', d: '缝线 + 褶皱 + 柔和宽高光' },
+            { k: 'mkr_fabric', n: '织物小样', d: '柔软过渡、绒面' },
+            { k: 'mkr_rubber', n: '橡胶小样', d: '哑光深色、弹性转折' },
+            { k: 'mkr_cera2', n: '陶瓷小样', d: '高光集中、边缘圆润' }
+          ] },
+          { k: 'mkr_obj', n: '产品精微特写', d: '小体积产品的细节塑造', children: [
+            { k: 'mkr_pen', n: '笔帽 / 笔杆特写', d: '分模线 + 印刷' },
+            { k: 'mkr_dial', n: '表盘特写', d: '同心圆刻度 + 玻璃' },
+            { k: 'mkr_cavity', n: '耳机腔体特写', d: '有机曲面 + 网孔' },
+            { k: 'mkr_chuck', n: '钻头细节特写', d: '金属螺纹 + 反光' }
+          ] }
+        ]
+      }
+    ],
+
+    combo: [
+      {
+        id: 'A', title: 'A · 2件组合（入门，30-45分钟）', goal: '目标：主次、前后、投影连接、材质对比。', items: [
+          { k: 'c2_1', n: '水壶 + 杯子' }, { k: 'c2_2', n: '相机 + 镜头' }, { k: 'c2_3', n: '耳机 + 手机' },
+          { k: 'c2_4', n: '电钻 + 螺丝' }, { k: 'c2_5', n: '木勺 + 砧板' }, { k: 'c2_6', n: '鞋 + 鞋盒' },
+          { k: 'c2_7', n: '台灯 + 书' }, { k: 'c2_8', n: '手表 + 表盒' }, { k: 'c2_9', n: '玻璃杯 + 玻璃瓶' }, { k: 'c2_10', n: '鼠标 + 键盘' }
+        ] },
+      { id: 'B', title: 'B · 3件组合（进阶，45-75分钟）', goal: '目标：前中后景、视觉中心、两种以上材质对比。', items: [
+        { k: 'c3_1', n: '桌面办公：笔记本电脑 + 鼠标 + 咖啡杯' }, { k: 'c3_2', n: '咖啡角：咖啡机 + 杯子 + 豆罐' },
+        { k: 'c3_3', n: '工具台：电钻 + 螺丝刀 + 零件盒' }, { k: 'c3_4', n: '摄影组：相机 + 镜头 + 摄影包' },
+        { k: 'c3_5', n: '穿戴组：耳机 + 手表 + 手机' }, { k: 'c3_6', n: '厨房组：锅 + 木勺 + 碗' },
+        { k: 'c3_7', n: '洗漱组：剃须刀 + 杯子 + 毛巾' }, { k: 'c3_8', n: '户外组：水壶 + 登山扣 + 手电筒' },
+        { k: 'c3_9', n: '床头组：台灯 + 书 + 眼镜' }, { k: 'c3_10', n: '设计组：手绘板 + 笔 + 马克笔' }
+      ] },
+      { id: 'C', title: 'C · 3-5件跨材质组合（高阶，75-120分钟）', goal: '目标：空间层次、主次虚实、材质区分、投影连接。', items: [
+        { k: 'c5_1', n: '设计师工作台：笔记本 + 手绘板 + 马克笔 + 咖啡杯 + 台灯' },
+        { k: 'c5_2', n: '摄影器材：相机 + 两个镜头 + 电池 + 包' },
+        { k: 'c5_3', n: '厨房料理台：锅 + 砧板 + 刀 + 调料瓶 + 碗' },
+        { k: 'c5_4', n: '工具墙：电钻 + 扳手 + 螺丝刀 + 零件盒 + 卷尺' },
+        { k: 'c5_5', n: '咖啡吧台：咖啡机 + 磨豆机 + 杯子 + 豆罐 + 托盘' },
+        { k: 'c5_6', n: '户外装备：背包 + 水壶 + 头盔 + 手电筒 + 登山扣' },
+        { k: 'c5_7', n: '穿戴陈列：鞋 + 包 + 手表 + 耳机 + 眼镜' },
+        { k: 'c5_8', n: '卫浴：水龙头 + 杯子 + 肥皂盒 + 毛巾 + 镜子' },
+        { k: 'c5_9', n: '办公桌：台灯 + 键盘 + 鼠标 + 笔记本 + 笔筒' },
+        { k: 'c5_10', n: '产品展台：主产品 + 包装 + 配件 + 说明卡' }
+      ] },
+      { id: 'D', title: 'D · 产品 + 手/人（★必练）', goal: '重点：手部结构、握持关系、遮挡、比例。', items: [
+        { k: 'ch_1', n: '手持电钻' }, { k: 'ch_2', n: '戴手表' }, { k: 'ch_3', n: '拿杯子' }, { k: 'ch_4', n: '戴耳机' },
+        { k: 'ch_5', n: '握游戏手柄' }, { k: 'ch_6', n: '推吸尘器' }, { k: 'ch_7', n: '提包' }, { k: 'ch_8', n: '戴 VR' }
+      ] },
+      { id: 'E', title: 'E · 产品 + 场景（☆进阶）', goal: '重点：透视统一、投影落地、环境退远。', items: [
+        { k: 'ce_1', n: '产品在桌面' }, { k: 'ce_2', n: '产品在地面' }, { k: 'ce_3', n: '产品在展台' },
+        { k: 'ce_4', n: '产品在包装旁' }, { k: 'ce_5', n: '产品在使用中' }
+      ] },
+      { id: 'F', title: 'F · 快题组合（★考前必练）', goal: '重点：排版、时间控制、完整度。', items: [
+        { k: 'cf_1', n: '主效果图' }, { k: 'cf_2', n: '三视图' }, { k: 'cf_3', n: '细节图' },
+        { k: 'cf_4', n: '使用场景' }, { k: 'cf_5', n: '爆炸图' }, { k: 'cf_6', n: '设计说明' }
+      ] },
+      { id: 'G', title: 'G · 马克笔精微组合（☆进阶）', goal: '重点：材质对比强烈、高光形状区分、细节保留。', items: [
+        { k: 'mkc_1', n: '金属 + 玻璃小样组合' },
+        { k: 'mkc_2', n: '塑料 + 橡胶小样组合' },
+        { k: 'mkc_3', n: '木质 + 皮革小样组合' },
+        { k: 'mkc_4', n: '透明材质组（玻璃杯 + 瓶 + 水瓶）' },
+        { k: 'mkc_5', n: '产品细节特写组（表盘 + 按键 + 分模线）' },
+        { k: 'mkc_6', n: '高光与反射组合（金属 + 屏幕）' }
+      ] }
+    ],
+
+    /* ===== 六大主题推荐主体物（与仿生单体分开练习） ===== */
+    themes: [
+      {
+        id: 'T1', title: '科技 · 主体物', star: '必练',
+        note: '方向：人工智能 / 生物科技 / 数字经济 / 技术伦理。表现重点：金属 + 玻璃 + 屏幕发光，精密分模线，冷色高光。快题组合：VR头显 + 手柄 + 基站。',
+        subs: [
+          { t: '★ 必练主体物', items: [
+            { k:'th_tech_1', n:'AI智能音箱 / 中控屏' }, { k:'th_tech_2', n:'VR / AR 头显' },
+            { k:'th_tech_3', n:'智能手表 / 手环' }, { k:'th_tech_4', n:'无人机' },
+            { k:'th_tech_5', n:'脑机接口头环' }, { k:'th_tech_6', n:'基因编辑仪' },
+            { k:'th_tech_7', n:'服务机器人 / 陪伴机器人' }, { k:'th_tech_8', n:'智能座舱' },
+            { k:'th_tech_9', n:'可穿戴健康监测贴' }, { k:'th_tech_10', n:'仿生机械手（作为科技产品画）' }
+          ] },
+          { t: '☆ 进阶主体物', items: [
+            { k:'th_tech_a1', n:'数字孪生沙盘' }, { k:'th_tech_a2', n:'AI摄影机' },
+            { k:'th_tech_a3', n:'智能义肢' }, { k:'th_tech_a4', n:'量子计算机模型' },
+            { k:'th_tech_a5', n:'太空探索设备' }, { k:'th_tech_a6', n:'智能农业传感器' },
+            { k:'th_tech_a7', n:'AI医疗诊断仪' }, { k:'th_tech_a8', n:'情绪识别设备' }
+          ] }
+        ]
+      },
+      {
+        id: 'T2', title: '社会 · 主体物', star: '进阶',
+        note: '方向：公共服务 / 社交方式 / 教育改革 / 特定群体。表现重点：人机交互、手部握持、圆润亲和、安全倒角。快题组合：助老设备 + 手机 + 手部。',
+        subs: [
+          { t: '★ 必练主体物', items: [
+            { k:'th_soc_1', n:'助老 / 助残设备' }, { k:'th_soc_2', n:'无障碍公共设施' },
+            { k:'th_soc_3', n:'社区服务终端' }, { k:'th_soc_4', n:'共享设备' },
+            { k:'th_soc_5', n:'急救包 / AED' }, { k:'th_soc_6', n:'儿童教育机器人' },
+            { k:'th_soc_7', n:'公共饮水台' }, { k:'th_soc_8', n:'垃圾分类站' },
+            { k:'th_soc_9', n:'社区健身器材' }, { k:'th_soc_10', n:'公共导视牌' }
+          ] },
+          { t: '☆ 进阶主体物', items: [
+            { k:'th_soc_a1', n:'适老化手机' }, { k:'th_soc_a2', n:'盲人导航仪' },
+            { k:'th_soc_a3', n:'手语翻译器' }, { k:'th_soc_a4', n:'公共自习舱' },
+            { k:'th_soc_a5', n:'共享办公舱' }, { k:'th_soc_a6', n:'社区食堂设备' },
+            { k:'th_soc_a7', n:'灾后救援设备' }, { k:'th_soc_a8', n:'心理疏导交互装置' },
+            { k:'th_soc_a9', n:'公共母婴室设施' }, { k:'th_soc_a10', n:'乡村医疗箱' }
+          ] }
+        ]
+      },
+      {
+        id: 'T3', title: '城市 · 主体物', star: '必练',
+        note: '方向：城市更新 / 乡村振兴 / 交通出行 / 未来社区。表现重点：透视、体量感、环境配景、空间层次。快题组合：共享单车 + 头盔 + 停车桩。',
+        subs: [
+          { t: '★ 必练主体物', items: [
+            { k:'th_city_1', n:'未来交通工具（滑板车 / 共享单车 / 无人配送车）' }, { k:'th_city_2', n:'公交站台' },
+            { k:'th_city_3', n:'路灯 / 智慧灯杆' }, { k:'th_city_4', n:'模块化建筑单元' },
+            { k:'th_city_5', n:'城市家具（长椅 / 垃圾桶 / 快递柜）' }, { k:'th_city_6', n:'立体车库' },
+            { k:'th_city_7', n:'无人机停机坪' }, { k:'th_city_8', n:'社区微更新设施' },
+            { k:'th_city_9', n:'移动商铺' }, { k:'th_city_10', n:'公共卫生间' }
+          ] },
+          { t: '☆ 进阶主体物', items: [
+            { k:'th_city_a1', n:'城市农业塔' }, { k:'th_city_a2', n:'地下物流管道' },
+            { k:'th_city_a3', n:'空中巴士' }, { k:'th_city_a4', n:'水上巴士' },
+            { k:'th_city_a5', n:'城市避难舱' }, { k:'th_city_a6', n:'模块化桥梁' },
+            { k:'th_city_a7', n:'乡村客运站' }, { k:'th_city_a8', n:'共享菜园设施' },
+            { k:'th_city_a9', n:'城市导视系统' }, { k:'th_city_a10', n:'智慧公交站' }
+          ] }
+        ]
+      },
+      {
+        id: 'T4', title: '生态 · 主体物', star: '必练',
+        note: '方向：可持续发展 / 气候危机 / 污染治理 / 生物多样性。表现重点：蓝绿配色、半透明材质、自然形态、环保质感。快题组合：空气净化器 + 植物 + 监测屏。',
+        subs: [
+          { t: '★ 必练主体物', items: [
+            { k:'th_eco_1', n:'海洋清理机器人' }, { k:'th_eco_2', n:'空气净化器' },
+            { k:'th_eco_3', n:'水净化设备' }, { k:'th_eco_4', n:'可降解包装' },
+            { k:'th_eco_5', n:'太阳能 / 风能设备' }, { k:'th_eco_6', n:'垃圾分类回收站' },
+            { k:'th_eco_7', n:'生态监测浮标' }, { k:'th_eco_8', n:'城市农场设备' },
+            { k:'th_eco_9', n:'低碳出行产品' }, { k:'th_eco_10', n:'雨水收集器' }
+          ] },
+          { t: '☆ 进阶主体物', items: [
+            { k:'th_eco_a1', n:'碳捕捉装置' }, { k:'th_eco_a2', n:'野生动物保护设备' },
+            { k:'th_eco_a3', n:'堆肥机' }, { k:'th_eco_a4', n:'噪音屏障' },
+            { k:'th_eco_a5', n:'绿色屋顶模块' }, { k:'th_eco_a6', n:'沙漠治理设备' },
+            { k:'th_eco_a7', n:'极地科考设备' }, { k:'th_eco_a8', n:'生物多样性监测相机' },
+            { k:'th_eco_a9', n:'潮汐能设备' }, { k:'th_eco_a10', n:'生态修复无人机' }
+          ] }
+        ]
+      },
+      {
+        id: 'T5', title: '文化 · 主体物', star: '进阶',
+        note: '方向：遗产保护 / 意识形态 / 民族精神 / 未来传统。表现重点：传统符号现代化，材质对比（青铜+玻璃、陶瓷+金属、木材+亚克力）。快题组合：茶具 + 香器 + 文创包装。',
+        subs: [
+          { t: '★ 必练主体物', items: [
+            { k:'th_cul_1', n:'文创产品（茶具 / 香器 / 文具）' }, { k:'th_cul_2', n:'博物馆互动装置' },
+            { k:'th_cul_3', n:'传统器物再设计' }, { k:'th_cul_4', n:'文房四宝' },
+            { k:'th_cul_5', n:'灯具' }, { k:'th_cul_6', n:'首饰' },
+            { k:'th_cul_7', n:'乐器' }, { k:'th_cul_8', n:'非遗工具' },
+            { k:'th_cul_9', n:'旅游纪念品' }, { k:'th_cul_10', n:'节庆用品' }
+          ] },
+          { t: '☆ 进阶主体物', items: [
+            { k:'th_cul_a1', n:'数字文物交互屏' }, { k:'th_cul_a2', n:'戏曲道具' },
+            { k:'th_cul_a3', n:'古代科技复原装置' }, { k:'th_cul_a4', n:'传统建筑构件再设计' },
+            { k:'th_cul_a5', n:'书法交互台' }, { k:'th_cul_a6', n:'文化IP潮玩' },
+            { k:'th_cul_a7', n:'汉服配饰' }, { k:'th_cul_a8', n:'榫卯家具' },
+            { k:'th_cul_a9', n:'地方特产包装' }, { k:'th_cul_a10', n:'文化导视系统' }
+          ] }
+        ]
+      },
+      {
+        id: 'T6', title: '消费 · 主体物', star: '必练',
+        note: '方向：消费行为 / 全球化贸易 / 经济关系 / 无感渗透。表现重点：高光泽、高反射、精致倒角、分模线、品牌感。快题组合：耳机 + 手表 + 包装盒。',
+        subs: [
+          { t: '★ 必练主体物', items: [
+            { k:'th_con_1', n:'智能穿戴（手表 / 手环 / 耳机）' }, { k:'th_con_2', n:'美妆包装' },
+            { k:'th_con_3', n:'小家电' }, { k:'th_con_4', n:'消费电子（手机 / 相机 / 音箱）' },
+            { k:'th_con_5', n:'食品包装' }, { k:'th_con_6', n:'饮料瓶' },
+            { k:'th_con_7', n:'潮玩 / 盲盒' }, { k:'th_con_8', n:'智能家居' },
+            { k:'th_con_9', n:'个护产品' }, { k:'th_con_10', n:'宠物用品' }
+          ] },
+          { t: '☆ 进阶主体物', items: [
+            { k:'th_con_a1', n:'无人商店终端' }, { k:'th_con_a2', n:'智能货架' },
+            { k:'th_con_a3', n:'快递包装' }, { k:'th_con_a4', n:'零售机器人' },
+            { k:'th_con_a5', n:'自动贩卖机' }, { k:'th_con_a6', n:'母婴产品' },
+            { k:'th_con_a7', n:'智能厨房' }, { k:'th_con_a8', n:'健身镜' },
+            { k:'th_con_a9', n:'美容仪' }, { k:'th_con_a10', n:'新零售购物车' }
+          ] }
+        ]
+      },
+      {
+        id: 'T7', title: '万能主体物（可套多个主题）', star: '万能',
+        note: '时间紧时优先练这些，再根据主题换配色、材质、场景。',
+        items: [
+          { k:'th_uni_1', n:'耳机' }, { k:'th_uni_2', n:'水壶' }, { k:'th_uni_3', n:'台灯' },
+          { k:'th_uni_4', n:'椅子' }, { k:'th_uni_5', n:'相机' }, { k:'th_uni_6', n:'无人机' },
+          { k:'th_uni_7', n:'机器人' }, { k:'th_uni_8', n:'智能手表' }, { k:'th_uni_9', n:'背包' },
+          { k:'th_uni_10', n:'杯子' }
+        ]
+      }
+    ],
+
+    /* ===== 仿生物 / 生物单体（基础造型与材质练习，不与六大主题混练） ===== */
+    bionic: [
+      {
+        id: 'BS', title: '仿生物 · 单体', star: '必练',
+        note: '每个单体：结构线稿 → 灰阶 → 完整材质 → 隔天默写 → 换角度默写。顺序：先动物，再植物，最后微观/骨骼。每个至少画 3 个角度，画到能默写。',
+        subs: [
+          { t: 'A · 昆虫（★必练）', note: '表现重点：外骨骼分节、鞘翅高光、复眼结构、透明翅膀、足关节。材质：甲壳、透明翅、绒毛、金属光泽。', items: [
+            { k:'bn_ins_1', n:'独角仙' }, { k:'bn_ins_2', n:'蝴蝶' }, { k:'bn_ins_3', n:'蜻蜓' },
+            { k:'bn_ins_4', n:'螳螂' }, { k:'bn_ins_5', n:'蜜蜂' }, { k:'bn_ins_6', n:'甲虫' },
+            { k:'bn_ins_7', n:'蝉' }, { k:'bn_ins_8', n:'蚂蚁' }, { k:'bn_ins_9', n:'蜘蛛（节肢类，选练）' }
+          ] },
+          { t: 'B · 水生（★必练）', note: '表现重点：流线型曲面、鳞片走向、触手动态、半透明质感、湿润高光。材质：鳞片、半透明、湿润、钙质壳。', items: [
+            { k:'bn_aq_1', n:'锦鲤' }, { k:'bn_aq_2', n:'鲨鱼' }, { k:'bn_aq_3', n:'水母' },
+            { k:'bn_aq_4', n:'章鱼' }, { k:'bn_aq_5', n:'海螺' }, { k:'bn_aq_6', n:'珊瑚' },
+            { k:'bn_aq_7', n:'海星' }, { k:'bn_aq_8', n:'海马' }, { k:'bn_aq_9', n:'贝壳' }
+          ] },
+          { t: 'C · 飞禽（★必练）', note: '表现重点：羽毛分层、翅膀折叠结构、骨点转折、角质喙。材质：羽毛、角质、骨骼、绒毛。', items: [
+            { k:'bn_bird_1', n:'鸟类翅膀' }, { k:'bn_bird_2', n:'羽毛' }, { k:'bn_bird_3', n:'猛禽爪' },
+            { k:'bn_bird_4', n:'鸟喙' }, { k:'bn_bird_5', n:'猫头鹰' }, { k:'bn_bird_6', n:'鹰' },
+            { k:'bn_bird_7', n:'鸽子' }, { k:'bn_bird_8', n:'孔雀尾羽' }
+          ] },
+          { t: 'D · 陆地（★必练）', note: '表现重点：肌肉体块、毛发走向、角质层纹理、骨骼支撑。材质：毛发、角质、皮肤、鳞甲。', items: [
+            { k:'bn_land_1', n:'猫' }, { k:'bn_land_2', n:'马' }, { k:'bn_land_3', n:'鹿角' },
+            { k:'bn_land_4', n:'羊角' }, { k:'bn_land_5', n:'龟壳' }, { k:'bn_land_6', n:'穿山甲鳞片' },
+            { k:'bn_land_7', n:'大象' }, { k:'bn_land_8', n:'犀牛' }
+          ] },
+          { t: 'E · 古生物（☆进阶）', note: '表现重点：骨骼穿插、风化质感、巨大体量感。材质：化石、骨骼、风化、裂纹。', items: [
+            { k:'bn_fos_1', n:'恐龙骨骼' }, { k:'bn_fos_2', n:'化石' }, { k:'bn_fos_3', n:'猛犸象牙' },
+            { k:'bn_fos_4', n:'三叶虫' }, { k:'bn_fos_5', n:'菊石' }
+          ] },
+          { t: 'F · 叶（★必练）', note: '表现重点：叶脉走向、边缘起伏、水分光泽。材质：叶脉、半透明、湿润、枯黄。', items: [
+            { k:'bn_leaf_1', n:'枫叶' }, { k:'bn_leaf_2', n:'龟背竹' }, { k:'bn_leaf_3', n:'松针' },
+            { k:'bn_leaf_4', n:'荷叶' }, { k:'bn_leaf_5', n:'银杏叶' }, { k:'bn_leaf_6', n:'蕨类' }
+          ] },
+          { t: 'G · 花（★必练）', note: '表现重点：花瓣层叠、半透明过渡、花蕊细节。材质：花瓣、花粉、绒毛、露水。', items: [
+            { k:'bn_flw_1', n:'玫瑰' }, { k:'bn_flw_2', n:'兰花' }, { k:'bn_flw_3', n:'莲花' },
+            { k:'bn_flw_4', n:'蒲公英' }, { k:'bn_flw_5', n:'向日葵' }, { k:'bn_flw_6', n:'郁金香' }
+          ] },
+          { t: 'H · 果实 / 种子（★必练）', note: '表现重点：几何螺旋、开裂结构、硬壳质感。材质：硬壳、种子、纤维、木质。', items: [
+            { k:'bn_frt_1', n:'松果' }, { k:'bn_frt_2', n:'豆荚' }, { k:'bn_frt_3', n:'石榴' },
+            { k:'bn_frt_4', n:'坚果' }, { k:'bn_frt_5', n:'莲蓬' }, { k:'bn_frt_6', n:'椰子' }
+          ] },
+          { t: 'I · 枝干 / 根（☆进阶）', note: '表现重点：纹理粗糙、扭曲转折、节点结构。材质：树皮、木质、纤维、苔藓。', items: [
+            { k:'bn_brn_1', n:'树皮' }, { k:'bn_brn_2', n:'藤蔓' }, { k:'bn_brn_3', n:'气生根' },
+            { k:'bn_brn_4', n:'枯木' }, { k:'bn_brn_5', n:'竹节' }
+          ] },
+          { t: 'J · 微观 / 骨骼 / 细胞（☆进阶）', note: '表现重点：抽象几何化、规律重复、精细线条。材质：透明、钙质、纤维、有机。', items: [
+            { k:'bn_mic_1', n:'细胞结构' }, { k:'bn_mic_2', n:'病毒' }, { k:'bn_mic_3', n:'DNA双螺旋' },
+            { k:'bn_mic_4', n:'神经元' }, { k:'bn_mic_5', n:'骨骼关节' }, { k:'bn_mic_6', n:'牙齿' },
+            { k:'bn_mic_7', n:'贝壳螺旋' }, { k:'bn_mic_8', n:'蛛网' }, { k:'bn_mic_9', n:'蜂巢' },
+            { k:'bn_mic_10', n:'蚁穴' }
+          ] }
+        ]
+      },
+      {
+        id: 'BC', title: '仿生 · 组合练习', star: '进阶',
+        note: '目标：主次、遮挡、材质对比、空间层次。',
+        items: [
+          { k:'bn_c1', n:'昆虫 + 叶' }, { k:'bn_c2', n:'鱼 + 珊瑚' }, { k:'bn_c3', n:'鸟 + 羽毛' },
+          { k:'bn_c4', n:'骨骼 + 化石' }, { k:'bn_c5', n:'花 + 花苞' }, { k:'bn_c6', n:'贝壳 + 珍珠' },
+          { k:'bn_c7', n:'水母 + 气泡' }, { k:'bn_c8', n:'甲虫 + 枯木' }
+        ]
+      }
+    ],
+
+    /* ===== 55 天冲刺计划（10.4 起 · 考研 12.19 · 预留 14 天完整稿） =====
+       ks = 当日关联的清单条目 key（用于今日清单可勾选、以及"未排入计划"比对） */
+    plan: [
+      /* --- 阶段一：基础造型与材质（D1-18） --- */
+      { d: 1, theme: '基础几何', content: '方体：正方体/长方体/倒角/圆角各5个', ks: ['sq'], k: 'sq' },
+      { d: 2, theme: '基础几何', content: '球体/椭球/半球：弧线笔触+明暗交界线', ks: ['sp'], k: 'sp' },
+      { d: 3, theme: '基础几何', content: '圆柱/圆锥/圆台：椭圆透视+直排线', ks: ['cy'], k: 'cy' },
+      { d: 4, theme: '基础几何', content: '组合体/混接面：方+柱、球+柱、曲面混接', ks: ['co'], k: 'co' },
+      { d: 5, theme: '产品结构元素', content: '分模线/按键/旋钮/散热孔/格栅/孔洞', ks: ['el'], k: 'el' },
+      { d: 6, theme: '塑料', content: '光滑塑料小样 + 遥控器：固有色+柔和高光', ks: ['m_plastic','b_remote'], k: 'm_plastic' },
+      { d: 7, theme: '塑料', content: '哑光塑料小样 + 游戏手柄：手握曲面+按键', ks: ['b_pad'], k: 'b_pad' },
+      { d: 8, theme: '金属', content: '金属小样：不锈钢/拉丝铝/生锈铁', ks: ['m_metal'], k: 'm_metal' },
+      { d: 9, theme: '金属', content: '水龙头 + 相机镜头：锐利高光+同心圆', ks: ['b_tap','b_lens'], k: 'b_tap' },
+      { d: 10, theme: '透明', content: '玻璃小样：透明杯/彩色瓶（透光+壁厚）', ks: ['m_glass'], k: 'm_glass' },
+      { d: 11, theme: '透明', content: '水瓶或灯具完整材质：折射+边缘高光', ks: ['b_bottle'], k: 'b_bottle' },
+      { d: 12, theme: '材质复盘', content: '同一形体三种材质对比：塑料/金属/玻璃', ks: [], k: '' },
+      { d: 13, theme: '木材', content: '木勺 + 砧板：纹理顺结构+年轮', ks: ['m_wood','b_board'], k: 'm_wood' },
+      { d: 14, theme: '皮革', content: '运动鞋完整材质：柔和宽高光+缝线+褶皱', ks: ['m_leather','b_shoe'], k: 'm_leather' },
+      { d: 15, theme: '橡胶 / 布料', content: '橡胶哑光深色 + 背包布料柔软过渡', ks: ['m_rubber','m_cloth','b_bag'], k: 'm_rubber' },
+      { d: 16, theme: '陶瓷', content: '碗/杯/茶具：高光集中+边缘圆润', ks: ['m_cera','b_cup'], k: 'm_cera' },
+      { d: 17, theme: '手持工具', content: '电钻完整材质 + 隔天默写', ks: ['b_drill'], k: 'b_drill' },
+      { d: 18, theme: '2件组合', content: '水壶 + 杯子：主次+投影连接', ks: ['c2_1','b_kettle'], k: 'c2_1' },
+
+      /* --- 阶段二：组合与快题（D19-24） --- */
+      { d: 19, theme: '3件组合', content: '桌面办公：笔记本 + 鼠标 + 咖啡杯', ks: ['c3_1'], k: 'c3_1' },
+      { d: 20, theme: '3件组合', content: '工具台：电钻 + 螺丝刀 + 零件盒', ks: ['c3_3'], k: 'c3_3' },
+      { d: 21, theme: '3-5件组合', content: '设计师工作台：跨材质+空间层次', ks: ['c5_1'], k: 'c5_1' },
+      { d: 22, theme: '产品 + 手', content: '手持电钻 / 戴手表：握持遮挡+比例', ks: ['ch_1','ch_2'], k: 'ch_1' },
+      { d: 23, theme: '产品 + 场景', content: '产品在桌面 / 展台：透视统一+投影落地', ks: ['ce_1','ce_3'], k: 'ce_1' },
+      { d: 24, theme: '快题模拟', content: '3小时完整卷面：效果图+三视图+细节+说明', ks: ['cf_1'], k: 'cf_1' },
+
+      /* --- 阶段三：马克笔精微塑造（D25-30） --- */
+      { d: 25, theme: '马克笔精微', content: '基础笔触：平涂/渐变/叠加/扫笔/高光笔', ks: ['mkr'], k: 'mkr' },
+      { d: 26, theme: '马克笔精微', content: '精微质感小样：金属/玻璃/塑料（选3）', ks: ['mkr_smpl'], k: 'mkr_smpl' },
+      { d: 27, theme: '马克笔精微', content: '产品精微特写：表盘/镜头/按键（高光反射）', ks: ['mkr_obj'], k: 'mkr_obj' },
+      { d: 28, theme: '马克笔精微', content: '精微组合：金属 + 玻璃小样组合', ks: ['mkc_1'], k: 'mkc_1' },
+      { d: 29, theme: '马克笔精微', content: '精微组合：高光与反射（金属 + 屏幕）', ks: ['mkc_6'], k: 'mkc_6' },
+      { d: 30, theme: '马克笔快题', content: '精微塑造卷面：效果图+细节特写+说明', ks: ['cf_3'], k: 'cf_3' },
+
+      /* --- 阶段四：仿生物 / 生物单体（D31-42） --- */
+      { d: 31, theme: '仿生 · 昆虫', content: '独角仙：外骨骼分节+鞘翅高光', ks: ['bn_ins_1'], k: 'bn_ins_1' },
+      { d: 32, theme: '仿生 · 昆虫', content: '蝴蝶 / 蜻蜓：透明翅膀+复眼结构', ks: ['bn_ins_2','bn_ins_3'], k: 'bn_ins_2' },
+      { d: 33, theme: '仿生 · 水生', content: '锦鲤：流线型曲面+鳞片走向', ks: ['bn_aq_1'], k: 'bn_aq_1' },
+      { d: 34, theme: '仿生 · 水生', content: '水母 / 珊瑚：半透明质感+湿润高光', ks: ['bn_aq_3','bn_aq_6'], k: 'bn_aq_3' },
+      { d: 35, theme: '仿生 · 飞禽', content: '鸟类翅膀：羽毛分层+折叠结构', ks: ['bn_bird_1'], k: 'bn_bird_1' },
+      { d: 36, theme: '仿生 · 飞禽', content: '羽毛：分组分层+顺方向', ks: ['bn_bird_2'], k: 'bn_bird_2' },
+      { d: 37, theme: '仿生 · 陆地', content: '猫：肌肉体块+毛发走向', ks: ['bn_land_1'], k: 'bn_land_1' },
+      { d: 38, theme: '仿生 · 陆地', content: '鹿角 / 龟壳：角质层纹理+骨骼支撑', ks: ['bn_land_3','bn_land_5'], k: 'bn_land_3' },
+      { d: 39, theme: '仿生 · 植物', content: '枫叶 / 龟背竹：叶脉走向+边缘起伏', ks: ['bn_leaf_1','bn_leaf_2'], k: 'bn_leaf_1' },
+      { d: 40, theme: '仿生 · 植物', content: '玫瑰 / 兰花：花瓣层叠+半透明过渡', ks: ['bn_flw_1','bn_flw_2'], k: 'bn_flw_1' },
+      { d: 41, theme: '仿生 · 植物', content: '松果 / 莲蓬：几何螺旋+开裂结构', ks: ['bn_frt_1','bn_frt_5'], k: 'bn_frt_1' },
+      { d: 42, theme: '仿生 · 组合', content: '昆虫 + 叶 / 鱼 + 珊瑚：主次+材质对比', ks: ['bn_c1','bn_c2'], k: 'bn_c1' },
+
+      /* --- 阶段五：六大主题主体物（D43-54） --- */
+      { d: 43, theme: '主题 · 科技', content: 'AI音箱 / VR头显 / 智能手表：金属+玻璃+屏幕发光', ks: ['th_tech_1','th_tech_2','th_tech_3'], k: 'th_tech_1' },
+      { d: 44, theme: '主题 · 科技快题', content: 'A3 快题：VR头显 + 手柄 + 基站', ks: [], k: '' },
+      { d: 45, theme: '主题 · 社会', content: '助老设备 / 无障碍设施 / 社区终端：圆润亲和+安全倒角', ks: ['th_soc_1','th_soc_2','th_soc_3'], k: 'th_soc_1' },
+      { d: 46, theme: '主题 · 社会快题', content: 'A3 快题：助老设备 + 手机 + 手部', ks: [], k: '' },
+      { d: 47, theme: '主题 · 城市', content: '共享单车 / 公交站台 / 智慧灯杆：透视+体量+空间层次', ks: ['th_city_1','th_city_2','th_city_3'], k: 'th_city_1' },
+      { d: 48, theme: '主题 · 城市快题', content: 'A3 快题：共享单车 + 头盔 + 停车桩', ks: [], k: '' },
+      { d: 49, theme: '主题 · 生态', content: '海洋清理机器人 / 空气净化器 / 水净化：蓝绿+半透明', ks: ['th_eco_1','th_eco_2','th_eco_3'], k: 'th_eco_1' },
+      { d: 50, theme: '主题 · 生态快题', content: 'A3 快题：空气净化器 + 植物 + 监测屏', ks: [], k: '' },
+      { d: 51, theme: '主题 · 文化', content: '文创茶具 / 博物馆装置 / 传统器物再设计：材质对比', ks: ['th_cul_1','th_cul_2','th_cul_3'], k: 'th_cul_1' },
+      { d: 52, theme: '主题 · 文化快题', content: 'A3 快题：茶具 + 香器 + 文创包装', ks: [], k: '' },
+      { d: 53, theme: '主题 · 消费', content: '智能穿戴 / 美妆包装 / 小家电：高光泽+精致倒角', ks: ['th_con_1','th_con_2','th_con_3'], k: 'th_con_1' },
+      { d: 54, theme: '主题 · 消费快题', content: 'A3 快题：耳机 + 手表 + 包装盒', ks: [], k: '' },
+
+      /* --- 阶段六：冲刺整合（D55） --- */
+      { d: 55, theme: '冲刺整合', content: '万能主体物总复盘 + 全真模拟（3小时4K卷面）', ks: [], k: '' }
+    ],
+
+    weeks: [
+      ['第1周', 'D1-7 · 基础几何 + 产品结构元素 + 塑料'],
+      ['第2周', 'D8-14 · 金属 / 透明 / 材质复盘 / 木材 / 皮革'],
+      ['第3周', 'D15-21 · 橡胶布料 / 陶瓷 / 手持工具 / 组合入门'],
+      ['第4周', 'D22-28 · 产品+手 / 场景 / 快题模拟 / 马克笔起步'],
+      ['第5周', 'D29-35 · 马克笔精微 + 仿生昆虫 / 水生'],
+      ['第6周', 'D36-42 · 仿生飞禽 / 陆地 / 植物 / 仿生组合'],
+      ['第7周', 'D43-49 · 六大主题：科技 / 社会 / 城市 / 生态'],
+      ['第8周', 'D50-55 · 六大主题：文化 / 消费 + 冲刺整合']
+    ],
+
+    checks: [
+      ['透视', '消失点统一，椭圆正确'],
+      ['结构', '倒角、分模线、按键位置合理'],
+      ['光影', '光源统一，明暗交界线准确'],
+      ['材质', '高光形状、反射内容、纹理方向正确'],
+      ['空间', '主次、前后、虚实拉开'],
+      ['笔触', '跟着结构走，不脏不乱']
+    ],
+
+    priority: [
+      { star: '★', tag: '必练', list: '基础几何、倒角、椭圆、塑料、金属、玻璃、木材、皮革、电钻、水壶、耳机、相机、椅子、鞋、包、杯子、瓶子、马克笔质感小样',
+        note: '时间有限时，只练★，每个物体画到能默写。' },
+      { star: '☆', tag: '进阶', list: '无人机、汽车、VR、咖啡机、爆炸图、剖面图、马克笔精微组合' },
+      { star: '△', tag: '选练', list: '动物、植物、火焰、烟雾、晶体' }
+    ],
+
+    steps: [
+      '构图：定外框，主产品占60%，配件30%，环境10%。',
+      '结构：所有物体透视统一，投影连接物体与地面。',
+      '灰阶：主产品对比最强，配件次之，背景最弱。',
+      '固有色：先浅后深，色数控制5-7支。',
+      '材质：至少两种材质对比，高光形状要区分。',
+      '调整：压暗部、提亮部、加投影、统一光源。'
+    ],
+
+    mkrSteps: [
+      '平涂：同一方向快速运笔，衔接均匀不留白边。',
+      '渐变：先浅后深、趁湿衔接，明暗自然过渡。',
+      '叠加：等第一层干后再叠第二层，层次分明。',
+      '高光：高光处先留白，或用白笔点提，位置随结构走。',
+      '反射：环境色轻扫进暗部，金属亮反射对比最强。',
+      '收边：沿结构轮廓收笔，边缘干净利落。'
+    ],
+
+    feishu: [
+      ['天数', '数字', '1-30（马克笔阶段为31-40）'],
+      ['主题', '单选', '基础几何、塑料、金属、透明、木材、皮革、马克笔精微等'],
+      ['练习内容', '文本', '当天具体任务'],
+      ['状态', '单选', '未开始 / 进行中 / 已完成'],
+      ['完成日期', '日期', '实际完成日期'],
+      ['结构', '复选框', '是否完成'],
+      ['灰阶', '复选框', '是否完成'],
+      ['材质', '复选框', '是否完成'],
+      ['默写', '复选框', '是否完成'],
+      ['复盘备注', '文本', '问题与改进']
+    ],
+
+    dailyRoutine: [
+      ['线条热身', 10], ['单体练习', 30], ['组合练习', 60], ['复盘', 10]
+    ],
+
+    /* ===== 考研倒计时配置 ===== */
+    exam: {
+      date: '2026-12-19',
+      label: '考研初试',
+      start: '2026-10-04',
+      reserveDays: 14,
+      note: '计划 55 天（10.4-11.27），此后预留 14 天专攻完整稿 + 机动缓冲。'
+    },
+
+    /* ===== 六大主题知识库 ===== */
+    themeTable: [
+      ['科技', 'AI、生物科技、数字经济', 'VR头显、智能手表、机器人', '金属 + 玻璃 + 屏幕发光'],
+      ['社会', '公共服务、特定群体', '助老设备、无障碍设施', '人机交互、圆润亲和'],
+      ['城市', '城市更新、交通出行', '共享单车、智慧灯杆、城市家具', '透视、体量、空间层次'],
+      ['生态', '可持续、污染治理', '空气净化器、海洋清理机器人', '蓝绿配色、半透明、环保质感'],
+      ['文化', '遗产保护、未来传统', '茶具、香器、博物馆装置', '传统符号现代化、材质对比'],
+      ['消费', '新消费、无感渗透', '耳机、手表、美妆包装', '高光泽、高反射、精致倒角']
+    ],
+
+    themePlan: [
+      '每个主题选 3 个★必练主体物。',
+      '每个主体物画：结构线稿 → 灰阶 → 完整材质 → 默写。',
+      '每个主题做 1 张 A3 快题：主效果图 + 三视图 + 细节图 + 设计说明。',
+      '六大主题共：18 个单体 + 6 张快题。',
+      '冲刺阶段：随机抽主题，30 分钟出概念草图，3 小时完成 4K 卷面。'
+    ],
+
+    themePriority: [
+      { star: '★', tag: '必练', list: '科技、生态、城市、消费' },
+      { star: '☆', tag: '进阶', list: '社会、文化' },
+      { star: '◎', tag: '万能主体物', list: '耳机、水壶、台灯、椅子、相机、无人机、机器人、智能手表、背包、杯子' }
+    ],
+
+    /* ===== 仿生物知识库 ===== */
+    bionicMethod: [
+      '结构线稿：先几何概括，再找生物特征，最后肯定线。',
+      '灰阶塑造：只用 3-4 支灰阶，画出体积和肌理。',
+      '材质专项：甲壳、鳞片、羽毛、半透明、骨骼、湿润。',
+      '默写：隔天默写同一单体，换角度再画一次。',
+      '限时：5 分钟抓动态，15 分钟结构，30 分钟完整塑造。',
+      '转化（可选）：提取结构、形态、肌理、动态，用于产品概念。'
+    ],
+
+    bionicMat: [
+      ['甲壳', '高光锐利、分节明确、边缘硬朗'],
+      ['鳞片', '重复半圆或菱形，顺结构排列'],
+      ['羽毛', '分组、分层、顺方向'],
+      ['半透明', '透光、边缘高光、内部结构'],
+      ['骨骼', '哑光、裂纹、风化'],
+      ['湿润', '高光碎、反光强'],
+      ['毛发', '分组、走向、层次'],
+      ['花瓣', '柔和过渡、半透明、露水'],
+      ['叶脉', '顺结构、深浅变化'],
+      ['树皮', '粗糙、裂纹、节点']
+    ],
+
+    bionicRhythm: [
+      ['基础阶段', '每天：线条热身 10min + 仿生单体结构 30min + 灰阶 40min + 复盘 10min；每周 2 动物 + 2 植物 + 1 微观；产出一本仿生速写本，每个单体至少 3 个角度。'],
+      ['强化阶段', '每天：1 个仿生单体 + 1 个组合练习；重点材质对比、动态、默写；产出 20 张完整单体图 + 8 张组合图。'],
+      ['冲刺阶段', '随机抽单体，15 分钟完成结构+材质；每周 2 次限时模拟：30 分钟完成一个仿生单体完整塑造。']
+    ],
+
+    bionicPlan: [
+      [1,'昆虫','独角仙'], [2,'昆虫','蝴蝶'], [3,'昆虫','蜻蜓'], [4,'昆虫','螳螂'], [5,'昆虫','蜜蜂'],
+      [6,'水生','锦鲤'], [7,'水生','鲨鱼'], [8,'水生','水母'], [9,'水生','章鱼'], [10,'水生','海螺/珊瑚'],
+      [11,'飞禽','鸟翼'], [12,'飞禽','羽毛'], [13,'飞禽','猛禽爪'], [14,'飞禽','鸟喙'],
+      [15,'陆地','猫'], [16,'陆地','马'], [17,'陆地','鹿角'], [18,'陆地','龟壳'], [19,'陆地','穿山甲鳞片'],
+      [20,'古生物','恐龙骨骼'], [21,'古生物','化石'], [22,'古生物','猛犸象牙'],
+      [23,'植物','枫叶'], [24,'植物','龟背竹'], [25,'植物','玫瑰'], [26,'植物','兰花'], [27,'植物','松果'], [28,'植物','树皮'],
+      [29,'微观','DNA双螺旋'], [30,'微观','神经元/骨骼关节']
+    ],
+
+    bionicPriority: [
+      { star: '★', tag: '必练', list: '昆虫、鱼、鸟、叶、花、手、贝壳、珊瑚、骨骼、羽毛、鳞片' },
+      { star: '☆', tag: '进阶', list: '古生物、微观结构、DNA、神经元' },
+      { star: '△', tag: '选练', list: '神话生物龙、凤、麒麟（做文化主题可单独用，不混入本清单）' }
+    ],
+
+    bionicUni: [
+      '昆虫', '鱼', '鸟', '叶', '花', '贝壳', '珊瑚', '骨骼', '羽毛', '鳞片', '手', '眼睛'
+    ]
+  };
+
+  /* ===== 名称 → 清单条目key 映射（供计划日关联可勾选条目） ===== */
+  function buildNameKeyMap(list){
+    var map={};
+    (list||[]).forEach(function(cat){
+      var arr=[];
+      if(cat.items) arr=arr.concat(cat.items);
+      if(cat.subs) cat.subs.forEach(function(sb){ arr=arr.concat(sb.items||[]); });
+      arr.forEach(function(it){ map[it.n]=it.k; });
+    });
+    return map;
+  }
+  var bnKeyMap=buildNameKeyMap(D.bionic);
+  bnKeyMap['鸟翼']='bn_bird_1'; /* 别名：鸟翼 → 鸟类翅膀 */
+  function bnKey(name){
+    if(bnKeyMap[name]) return bnKeyMap[name];
+    /* 模糊匹配：如「海螺/珊瑚」→ 海螺，「神经元/骨骼关节」→ 神经元，「鸟翼」→ 鸟类翅膀 */
+    var parts=String(name).split('/');
+    for(var i=0;i<parts.length;i++){
+      var p=parts[i].trim();
+      if(bnKeyMap[p]) return bnKeyMap[p];
+      var hit=Object.keys(bnKeyMap).filter(function(k){ return k.indexOf(p)>-1||p.indexOf(k)>-1; })[0];
+      if(hit) return bnKeyMap[hit];
+    }
+    return '';
+  }
+
+  /* ===== 训练计划阶段分组（供计划页折叠分类） ===== */
+  D.planStages = [
+    { name: '基础造型与材质', weeks: '第1-3周', from: 1, to: 18, tag: '必练' },
+    { name: '组合与快题', weeks: '第4周', from: 19, to: 24, tag: '必练' },
+    { name: '马克笔精微塑造', weeks: '第5周', from: 25, to: 30, tag: '必练' },
+    { name: '仿生物 / 生物单体', weeks: '第6-7周', from: 31, to: 42, tag: '必练' },
+    { name: '六大主题主体物', weeks: '第7-8周', from: 43, to: 54, tag: '进阶' },
+    { name: '冲刺整合', weeks: '第8周', from: 55, to: 55, tag: '必练' }
+  ];
+
+  /* ===== 未排入 55 天计划的训练内容（自动比对清单得出，供单独查看） ===== */
+  D.unplanned = (function(){
+    var used = {};
+    D.plan.forEach(function(p){ (p.ks||[]).forEach(function(k){ used[k]=true; }); if(p.k) used[p.k]=true; });
+    var out = [];
+    function scan(list, groupName){
+      (list||[]).forEach(function(cat){
+        var catName = cat.title || groupName;
+        function walk(items, subName){
+          var missed = (items||[]).filter(function(it){ return !used[it.k]; });
+          if(missed.length){
+            out.push({ cat: catName, sub: subName || '', items: missed.map(function(it){ return {k:it.k, n:it.n, d:it.d||''}; }) });
+          }
+        }
+        if(cat.subs){ cat.subs.forEach(function(sb){ walk(sb.items, sb.t); }); }
+        else if(cat.items){ walk(cat.items, ''); }
+        else if(cat.rows){ walk(cat.rows.map(function(r){ return {k:r.k, n:r.mat, d:r.obj}; }), ''); }
+      });
+    }
+    scan(D.solo, '单体');
+    scan(D.combo, '组合');
+    scan(D.themes, '六大主题');
+    scan(D.bionic, '仿生');
+    return out;
+  })();
+
+  return D;
+})();
+</script>
+<script>
+/* ================= SECTION: 状态与数据 ================= */
+var DATA = window.SKETCH_DATA;
+var LS_KEY = 'zhongmei_sketch_checkin_v1';
+var PLAN_TOTAL = (DATA.plan||[]).length || 40;
+function todayKey(d){ var dd=d||new Date(); return dd.getFullYear()+'-'+String(dd.getMonth()+1).padStart(2,'0')+'-'+String(dd.getDate()).padStart(2,'0'); }
+var CUR_DAY = 1;
+
+var state = { items:{}, days:{}, history:{} };
+function loadState(){ try{ var raw=localStorage.getItem(LS_KEY); if(raw){ var o=JSON.parse(raw); if(o) state=Object.assign(state,o); } }catch(e){} }
+function saveState(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){} }
+
+function dayKey(day){ return 'D'+day; }
+function dayRec(day){ var k=dayKey(day); if(!state.days[k]) state.days[k]={done:false,note:'',checks:[]}; return state.days[k]; }
+
+/* 已完成天数（仅统计计划范围内，避免旧数据越界导致 >55） */
+function doneDayCount(){
+  var n=0;
+  for(var d=1; d<=PLAN_TOTAL; d++){ if(dayRec(d).done) n++; }
+  return n;
+}
+
+/* 物品集合（含子项） */
+var ALL_ITEMS = [];
+var ITEM_MAP = {};
+(function collect(){
+  function push(it, parentSub){
+    ALL_ITEMS.push({sub:parentSub, n:it.n, k:it.k, d:it.d||''});
+    ITEM_MAP[it.k]=it;
+    if(it.children){ it.children.forEach(function(ch){ push(ch, parentSub); }); }
+  }
+  DATA.solo.forEach(function(cat){
+    var subT = cat.title;
+    if(cat.items){ cat.items.forEach(function(it){ push(it, subT); }); }
+    if(cat.subs){ cat.subs.forEach(function(sb){ sb.items.forEach(function(it){ push(it, sb.t); }); }); }
+    if(cat.table){ cat.rows.forEach(function(r){ push({k:r.k,n:r.mat,d:r.obj+'。'+r.pt}, subT); }); }
+  });
+  DATA.combo.forEach(function(cat){
+    cat.items.forEach(function(it){ push(it, cat.title); });
+  });
+  (DATA.themes||[]).forEach(function(cat){
+    if(cat.items){ cat.items.forEach(function(it){ push(it, cat.title); }); }
+    if(cat.subs){ cat.subs.forEach(function(sb){ sb.items.forEach(function(it){ push(it, sb.t); }); }); }
+  });
+  (DATA.bionic||[]).forEach(function(cat){
+    if(cat.items){ cat.items.forEach(function(it){ push(it, cat.title); }); }
+    if(cat.subs){ cat.subs.forEach(function(sb){ sb.items.forEach(function(it){ push(it, sb.t); }); }); }
+  });
+})();
+function itemRec(k){ if(!state.items[k]) state.items[k]={}; return state.items[k]; }
+function itemAny(k){ var r=itemRec(k); return DATA.CHECK_FIELDS.some(function(f){ return r[f[0]]===true; }); }
+function itemFull(k){ var r=itemRec(k); return DATA.TIP_MAIN.filter(function(f){ return r[f[0]]===true; }).length >= 4; }
+function itemDoneCount(k){ var r=itemRec(k); return DATA.CHECK_FIELDS.filter(function(f){ return r[f[0]]===true; }).length; }
+function totalChecks(){ var n=0; ALL_ITEMS.forEach(function(it){ n+=itemDoneCount(it.k); }); return n; }
+function itemPct(){ if(ALL_ITEMS.length===0) return 0; return Math.round(ALL_ITEMS.filter(function(it){ return itemAny(it.k); }).length/ALL_ITEMS.length*100); }
+
+/* ================= SECTION: 工具 ================= */
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+var toastTimer=null;
+function toast(msg){ var t=$('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(function(){ t.classList.remove('show'); },1700); }
+
+/* 周次映射（8 周，每 7 天一周） */
+function weekLabelOf(day){
+  if(day<=7) return '第1周';
+  if(day<=14) return '第2周';
+  if(day<=21) return '第3周';
+  if(day<=28) return '第4周';
+  if(day<=35) return '第5周';
+  if(day<=42) return '第6周';
+  if(day<=49) return '第7周';
+  return '第8周';
+}
+
+/* ================= SECTION: 导航 ================= */
+var VIEWS=['today','checkin','plan','knowledge','stats'];
+function switchView(v){
+  VIEWS.forEach(function(x){ $('view-'+x).classList.remove('show'); });
+  $('view-'+v).classList.add('show');
+  document.querySelectorAll('.tab').forEach(function(b){ b.classList.toggle('active', b.dataset.view===v); });
+  if(v==='today') renderToday();
+  if(v==='checkin') renderCheckin();
+  if(v==='plan') renderPlan();
+  if(v==='knowledge') renderKnowledge();
+  if(v==='stats') renderStats();
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('.tab').forEach(function(b){ b.addEventListener('click', function(){ switchView(b.dataset.view); }); });
+
+/* ================= SECTION: 头部统计 ================= */
+function renderHeader(){
+  var dates=Object.keys(state.history).filter(function(k){ return state.history[k].checked; }).sort();
+  var streak=0, cursor=new Date();
+  if(!state.history[todayKey(cursor)] || !state.history[todayKey(cursor)].checked){ cursor.setDate(cursor.getDate()-1); }
+  while(state.history[todayKey(cursor)] && state.history[todayKey(cursor)].checked){ streak++; cursor.setDate(cursor.getDate()-1); }
+  $('hd-streak').textContent=streak;
+  $('hd-today').textContent=doneDayCount();
+  /* 考研倒计时 */
+  var examEl=$('hd-exam');
+  if(examEl && DATA.exam && DATA.exam.date){
+    var today=new Date(); today.setHours(0,0,0,0);
+    var parts=DATA.exam.date.split('-');
+    var exam=new Date(+parts[0], +parts[1]-1, +parts[2]); exam.setHours(0,0,0,0);
+    var left=Math.round((exam-today)/86400000);
+    examEl.textContent = left>0 ? left : (left===0 ? '今天' : '已过');
+  }
+}
+
+/* ================= SECTION: 今日打卡 ================= */
+function weekOf(day){
+  var label=weekLabelOf(day);
+  var span=[]; DATA.plan.forEach(function(p,i){ if(weekLabelOf(i+1)===label) span.push(i+1); });
+  return {label:label, span:span};
+}
+function renderToday(){
+  var day=CUR_DAY; var planItem=DATA.plan[day-1]; var rec=dayRec(day); var w=weekOf(day);
+  $('today-week').textContent=w.label;
+  $('today-theme-tag').textContent=planItem?planItem.theme:'自由练习';
+  $('today-daynum').textContent=day;
+  $('today-content').textContent=planItem?planItem.content:'——';
+  $('today-desc').textContent=planItem?('今日主题：'+planItem.theme+'。完成下方清单后点「今日打卡」做复盘。'):'今日练习内容';
+
+  var rt=$('today-routine'); rt.innerHTML='';
+  DATA.dailyRoutine.forEach(function(r){
+    var d=document.createElement('div'); d.className='ri';
+    d.innerHTML='<b>'+r[1]+'min</b><span>'+r[0]+'</span>'; rt.appendChild(d);
+  });
+
+  var save=$('btn-today-save');
+  save.textContent=rec.done?'✅ 已完成 · 修改':'完成今日打卡';
+  if(rec.done){ save.className='btn gold'; } else { save.className='btn gold'; }
+
+  $('btn-prev').onclick=function(){ CUR_DAY=Math.max(1,CUR_DAY-1); renderToday(); renderHeader(); };
+  $('btn-next').onclick=function(){ CUR_DAY=Math.min(PLAN_TOTAL,CUR_DAY+1); renderToday(); renderHeader(); };
+  $('btn-today-save').onclick=function(){ openDailyModal(day); };
+
+  /* 本周进度 */
+  var wkDone=0; w.span.forEach(function(d){ if(dayRec(d).done) wkDone++; });
+  $('week-label2').textContent=w.label;
+  $('week-progress').style.width=Math.round(wkDone/w.span.length*100)+'%';
+  var ws=$('week-strip'); ws.innerHTML='';
+  w.span.forEach(function(d){
+    var p=DATA.plan[d-1], dn=dayRec(d).done;
+    var el=document.createElement('div'); el.className='wk'+(dn?' on':'');
+    el.innerHTML='<b>第'+d+'天'+(dn?' ✓':'')+'</b><span>'+esc(p.theme)+'</span>';
+    el.onclick=function(){ CUR_DAY=d; renderToday(); };
+    ws.appendChild(el);
+  });
+
+  renderDailyPlan(day);
+
+  var doneApproved=doneDayCount();
+  $('overall-progress').style.width=Math.round(doneApproved/PLAN_TOTAL*100)+'%';
+  $('ms-days').textContent=doneApproved+'/'+PLAN_TOTAL;
+  $('ms-items').textContent=itemPct()+'%';
+  $('ms-checks').textContent=totalChecks();
+
+  /* 考研倒计时说明 */
+  var en=$('exam-note');
+  if(en && DATA.exam && DATA.exam.date){
+    var today=new Date(); today.setHours(0,0,0,0);
+    var ps=DATA.exam.date.split('-');
+    var exam=new Date(+ps[0], +ps[1]-1, +ps[2]); exam.setHours(0,0,0,0);
+    var left=Math.round((exam-today)/86400000);
+    var msg='<b>距 '+esc(DATA.exam.label)+'（'+esc(DATA.exam.date)+'）还有 '+
+      (left>0?left+' 天':(left===0?'就是今天':'—'))+'</b><br>'+esc(DATA.exam.note);
+    /* 按计划起始日推算今天应进行到第几天 */
+    if(DATA.exam.start){
+      var ss=DATA.exam.start.split('-');
+      var start=new Date(+ss[0], +ss[1]-1, +ss[2]); start.setHours(0,0,0,0);
+      var elapsed=Math.round((today-start)/86400000)+1;
+      if(elapsed<1) msg+='<br>计划将于 '+esc(DATA.exam.start)+' 开始。';
+      else if(elapsed>PLAN_TOTAL) msg+='<br>55 天计划已完成，进入完整稿冲刺阶段（预留 '+(DATA.exam.reserveDays||14)+' 天）。';
+      else msg+='<br>按起始日推算，今天应进行到第 <b>'+elapsed+'</b> 天。';
+    }
+    en.innerHTML=msg;
+  }
+  renderHeader();
+}
+
+/* 今日建议清单 */
+function renderDailyPlan(day){
+  var box=$('today-plan'); box.innerHTML='';
+  var planItem=DATA.plan[day-1]; var theme=planItem?planItem.theme:'';
+  var wIdx=parseInt(weekLabelOf(day).replace(/\D/g,''),10);
+
+  function pickSolo(keys){ var picked=[],used={}; (keys||[]).forEach(function(k){ if(ITEM_MAP[k]&&!used[k]){ picked.push({n:ITEM_MAP[k].n,k:k}); used[k]=true; } }); return picked; }
+
+  /* 单体练习：直接取当日计划关联的清单条目（数据驱动），排除组合类条目避免与下行重复 */
+  function isComboKey(k){ return /^(c2_|c3_|c5_|ch_|ce_|cf_|mkc_|bn_c)/.test(k); }
+  var soloKeys = (planItem && planItem.ks ? planItem.ks : []).filter(function(k){ return !isComboKey(k); });
+  var soloPick = pickSolo(soloKeys);
+  if(soloPick.length===0 && planItem && planItem.k && ITEM_MAP[planItem.k] && !isComboKey(planItem.k)) soloPick=pickSolo([planItem.k]);
+  if(soloPick.length===0) soloPick=[{n:(planItem?planItem.content.split('：')[0]:'自由练习当日主题单体'),k:(planItem&&!isComboKey(planItem.k)?planItem.k:'')||''}];
+
+  /* 组合练习：按阶段主题给出建议 */
+  var comboPick=null;
+  var isQuick = theme.indexOf('快题')>-1;
+  var comboMap={
+    '2件组合':{n:'2件组合：水壶 + 杯子（主次+投影连接）',k:'c2_1'},
+    '3件组合':{n:'3件组合：桌面办公 / 工具台（前中后景）',k:'c3_1'},
+    '3-5件组合':{n:'3-5件跨材质组合：设计师工作台',k:'c5_1'},
+    '产品 + 手':{n:'产品 + 手：手持电钻 / 戴手表（握持遮挡）',k:'ch_1'},
+    '产品 + 场景':{n:'产品 + 场景：桌面 / 展台（透视统一）',k:'ce_1'},
+    '快题模拟':{n:'快题模拟：效果图 + 三视图 + 细节 + 说明',k:'cf_1'},
+    '马克笔精微':{n:'马克笔精微组合：金属 + 玻璃小样',k:'mkc_1'},
+    '马克笔快题':{n:'精微卷面：效果图 + 细节特写 + 说明',k:'cf_3'},
+    '材质复盘':{n:'材质复盘：同一形体三种材质对比',k:''},
+    '冲刺整合':{n:'万能主体物 + 全真模拟卷面（3小时4K）',k:'cf_1'}
+  };
+  if(comboMap[theme]) comboPick=comboMap[theme];
+  /* 仿生阶段：给出仿生组合作为组合练习 */
+  if(theme.indexOf('仿生')===0 && !isQuick){
+    var bnCombos={'昆虫':'bn_c1','水生':'bn_c2','飞禽':'bn_c3','陆地':'bn_c3','植物':'bn_c5','组合':'bn_c1'};
+    var cat=theme.replace('仿生 · ','');
+    var bk=bnCombos[cat];
+    comboPick={n:'仿生组合：'+(ITEM_MAP[bk]?ITEM_MAP[bk].n:'昆虫 + 叶（主次、遮挡）'),k:bk||'bn_c1'};
+  }
+  /* 六大主题：单体日配该主题快题，快题日即为组合本身 */
+  if(theme.indexOf('主题 · ')===0){
+    var tname=theme.replace('主题 · ','').replace('快题','');
+    if(isQuick){
+      comboPick={n:'A3 快题（'+tname+'）：主效果图 + 三视图 + 细节图 + 设计说明',k:''};
+    }else{
+      var qday=null;
+      for(var qi=0;qi<DATA.plan.length;qi++){ if(DATA.plan[qi].theme==='主题 · '+tname+'快题'){ qday=DATA.plan[qi]; break; } }
+      comboPick={n:'预习该主题 A3 快题：'+(qday?qday.content.replace(/^A3 快题：/,''):tname),k:''};
+    }
+  }
+
+  function addRow(label, txt, k, miniCls){
+    if(!txt) return;
+    var row=document.createElement('div'); row.className='today-plan-item';
+    var chk=document.createElement('div'); chk.className='tp-c';
+    if(k&&itemAny(k)) chk.classList.add('done');
+    chk.onclick=function(){
+      if(!k){ toast('此为建议项，可在「清单」页打卡对应物品'); return; }
+      var r=itemRec(k);
+      var all=DATA.TIP_MAIN.every(function(f){ return r[f[0]]===true; });
+      DATA.TIP_MAIN.forEach(function(f){ r[f[0]] = !all; });
+      saveState(); renderToday(); toast(all?'已取消：'+txt:'已勾选四阶：'+txt);
+    };
+    var body=document.createElement('div'); body.className='tp-b';
+    body.innerHTML='<b>'+esc(label)+' <span class="mini '+miniCls+'">'+lenTag(label)+'</span></b><p>'+esc(txt)+'</p>';
+    row.appendChild(chk); row.appendChild(body); box.appendChild(row);
+  }
+  function lenTag(l){ if(l.indexOf('单体')>-1) return '30min'; if(l.indexOf('组合')>-1) return '60min'; return '10min'; }
+  addRow('单体练习 · 30 分钟', soloPick.map(function(s){ return s.n; }).join('、'), (soloPick[0]&&soloPick[0].k)||'', 'blu');
+  if(comboPick) addRow('组合练习 · 60 分钟', comboPick.n, comboPick.k, 'grn');
+  else addRow('组合练习 · 60 分钟', '以单体深化为主，可加练 2 件组合（水壶+杯子）', '', 'grn');
+  addRow('复盘 · 10 分钟', '回顾今日问题，填写复盘备注', '', '');
+}
+
+/* 每日复盘弹窗 */
+function openDailyModal(day){
+  var rec=dayRec(day);
+  $('md-title').textContent='第 '+day+' 天 · 复盘打卡';
+  $('md-sub').textContent=DATA.plan[day-1]?(DATA.plan[day-1].theme+'｜'+DATA.plan[day-1].content):'自由练习日';
+  $('md-note').value=rec.note||'';
+  var box=$('md-checks'); box.innerHTML='';
+  DATA.CHECK_FIELDS.forEach(function(f){
+    var on=rec.checks.indexOf(f[0])>-1;
+    var l=document.createElement('button'); l.className='ckb'+(on?' on':''); l.style.minHeight='36px';
+    l.innerHTML='<span class="bx"></span>'+f[1];
+    l.onclick=function(){ l.classList.toggle('on'); };
+    box.appendChild(l);
+  });
+  $('modal-daily').classList.remove('hidden');
+  $('md-save').onclick=function(){
+    var checks=[];
+    document.querySelectorAll('#md-checks .ckb').forEach(function(b){
+      if(b.classList.contains('on')){
+        var t=b.textContent.trim();
+        checks.push(t==='结构'?'s':t==='灰阶'?'g':t==='材质'?'m':t==='默写'?'mem':'a');
+      }
+    });
+    rec.note=$('md-note').value.trim(); rec.checks=checks; rec.done=true;
+    var tk=todayKey();
+    var h=state.history[tk]||{checked:false,items:0,note:'',planDay:day};
+    h.checked=true; h.note=rec.note||h.note; h.items=ALL_ITEMS.filter(function(it){ return itemAny(it.k); }).length; h.planDay=day;
+    state.history[tk]=h;
+    saveState(); $('modal-daily').classList.add('hidden'); renderToday(); renderHeader();
+    toast('第 '+day+' 天打卡已保存');
+  };
+  $('md-cancel').onclick=function(){ $('modal-daily').classList.add('hidden'); };
+}
+
+/* ================= SECTION: 清单打卡 ================= */
+var ckGroupFilter='all';
+var expanded={}; /* 条目子项展开状态 */
+var catOpen={}; /* 大组折叠状态：默认全收起 */
+function renderCheckin(){
+  var fv=$('ck-filter').value;
+  var cg=$('ck-group'); cg.innerHTML='<option value="all">全部组别</option>';
+  var SECTIONS=[
+    { key:'solo', data:DATA.solo||[], box:$('ck-solo') },
+    { key:'combo', data:DATA.combo||[], box:$('ck-combo') },
+    { key:'bionic', data:DATA.bionic||[], box:$('ck-bionic') },
+    { key:'themes', data:DATA.themes||[], box:$('ck-themes') }
+  ];
+  var shown=SECTIONS.filter(function(s){ return fv==='all'||fv===s.key; });
+  var groups=[];
+  shown.forEach(function(s){ s.data.forEach(function(c){ groups.push({id:c.id,label:c.title}); }); });
+  groups.forEach(function(g){ var o=document.createElement('option'); o.value=g.id; o.textContent=g.label; cg.appendChild(o); });
+  cg.value=groups.some(function(g){ return g.id===ckGroupFilter; })?ckGroupFilter:'all';
+  cg.onchange=function(){ ckGroupFilter=cg.value; if(ckGroupFilter!=='all') catOpen[ckGroupFilter]=true; else catOpen={}; renderCheckin(); };
+
+  SECTIONS.forEach(function(s){ s.box.innerHTML=''; s.box.classList.toggle('hidden', shown.indexOf(s)===-1); });
+
+  var stat={items:0, checked:0};
+  function chkHTML(it){
+    var r=itemRec(it.k);
+    return DATA.CHECK_FIELDS.map(function(f){
+      var on=r[f[0]]===true;
+      return '<button class="ckb'+(on?' on':'')+'" data-k="'+esc(it.k)+'" data-f="'+f[0]+'" style="min-height:34px"><span class="bx"></span>'+f[1]+'</button>';
+    }).join('');
+  }
+  /* 渲染一个条目（level 为缩进层级），返回 HTML 字符串，并统计 */
+  function rowHTML(it, level){
+    stat.items++;
+    if(itemAny(it.k)) stat.checked++;
+    var hasChild=it.children&&it.children.length;
+    var childPct = hasChild ? Math.round(it.children.filter(function(c){ return itemAny(c.k); }).length/it.children.length*100) : -1;
+    var pad=level*16;
+    return '<div class="ir" style="padding-left:'+pad+'px">'+
+      '<div class="nm"><b>'+esc(it.n)+'</b>'+(it.d?'<small>'+esc(it.d)+'</small>':'')+'</div>'+
+      '<div class="ir-checks">'+chkHTML(it)+'</div>'+
+      (childPct===100?'<span class="all-badge">全过</span>':'')+
+      (hasChild?'<button class="exp'+((expanded[it.k])?' open':'')+'" data-exp="'+esc(it.k)+'">▾</button>':'')+
+      '</div>';
+  }
+  /* 渲染某条目的展开子项（水平更深一格），返回 HTML 字符串，并统计 */
+  function childrenHTML(it){
+    if(!it.children||!it.children.length||!expanded[it.k]) return '';
+    var html='<div class="sub-box open">';
+    it.children.forEach(function(c){
+      stat.items++;
+      if(itemAny(c.k)) stat.checked++;
+      html+='<div class="ir" style="padding-left:40px">'+
+        '<div class="nm"><b>'+esc(c.n)+'</b>'+(c.d?'<small>'+esc(c.d)+'</small>':'')+'</div>'+
+        '<div class="ir-checks">'+chkHTML(c)+'</div></div>';
+    });
+    return html+'</div>';
+  }
+  /* 渲染一个分类（一级子组标题 + 其条目） */
+  function renderCat(cat, box){
+    if(!box) return;
+    var subs=cat.subs||null;
+    var html='';
+    if(subs){
+      /* B 类等：每个子组一个二级标题块，子组内条目可展开 */
+      subs.forEach(function(sb, si){
+        html+='<div class="subgrp-title'+(si>0?' mt': '')+'">'+esc(sb.t)+'</div>';
+        html+='<div class="subgrp-note">'+esc(sb.note||'')+'</div>';
+        sb.items.forEach(function(it){
+          html+=rowHTML(it,0)+childrenHTML(it);
+        });
+      });
+    }else{
+      if(cat.items){
+        cat.items.forEach(function(it){ html+=rowHTML(it,0)+childrenHTML(it); });
+      }
+      if(cat.table){
+        cat.rows.forEach(function(r){ html+=rowHTML({k:r.k,n:r.mat,d:r.obj+'。'+r.pt},0); });
+      }
+    }
+    var childFull = function(it){ return itemAny(it.k) || (it.children?it.children.some(function(c){ return itemAny(c.k); }):false); };
+    var childCount = function(it){ return 1 + (it.children?it.children.length:0); };
+    var doneCount = 0, totalCount = 0;
+    if(cat.subs){
+      doneCount = cat.subs.reduce(function(s,sb){ return s+sb.items.filter(childFull).length; },0);
+      totalCount = cat.subs.reduce(function(s,sb){ return s+sb.items.reduce(function(a,it){ return a+childCount(it); },0); },0);
+    } else if(cat.items){
+      doneCount = cat.items.filter(childFull).length;
+      totalCount = cat.items.reduce(function(a,it){ return a+childCount(it); },0);
+    } else if(cat.table){
+      doneCount = cat.rows.filter(function(r){ return itemAny(r.k); }).length;
+      totalCount = cat.rows.length;
+    }
+    var catEl=document.createElement('div'); catEl.className='cat'+(catOpen[cat.id]?' open':'');
+    var head='<div class="cat-head" data-cat="'+esc(cat.id)+'"><span class="ct">'+esc(cat.title)+'</span>';
+    if(cat.star) head+='<span class="tag '+(cat.star==='必练'?'star':cat.star==='进阶'?'mid':'low')+'">'+esc(cat.star)+'</span>';
+    head+='<span class="cp">'+doneCount+'/'+totalCount+'</span>';
+    if(cat.note) head+='<span class="cn">'+esc(cat.note)+'</span>';
+    head+='<span class="expand-arrow">▾</span></div><div class="cat-body">'+html+'</div>';
+    catEl.innerHTML=head;
+    box.appendChild(catEl);
+  }
+  shown.forEach(function(s){
+    s.data.forEach(function(cat){ if(ckGroupFilter==='all'||cat.id===ckGroupFilter) renderCat(cat, s.box); });
+  });
+  $('ck-count').textContent='共 '+stat.items+' 项 · 勾选 '+stat.checked;
+
+  /* 绑定勾选 */
+  document.querySelectorAll('.ckb[data-k]').forEach(function(el){
+    el.onclick=function(){
+      var k=el.dataset.k,f=el.dataset.f,r=itemRec(k);
+      r[f]=!(r[f]===true);
+      saveState(); renderCheckin(); toast((r[f]?'✓ 勾选':'取消')+'：'+(ITEM_MAP[k]?ITEM_MAP[k].n:k));
+    };
+  });
+  /* 展开 */
+  document.querySelectorAll('.exp[data-exp]').forEach(function(el){
+    el.onclick=function(){
+      var k=el.dataset.exp;
+      expanded[k]=!expanded[k];
+      renderCheckin();
+    };
+  });
+  /* 大组折叠 */
+  document.querySelectorAll('.cat-head[data-cat]').forEach(function(el){
+    el.onclick=function(){
+      var id=el.dataset.cat;
+      catOpen[id]=!catOpen[id];
+      renderCheckin();
+    };
+  });
+}
+
+/* ================= SECTION: 训练计划 ================= */
+var planFilter='all';
+var stageOpen={}; /* 阶段折叠状态：默认全收起 */
+function renderPlan(){
+  $('plan-list').innerHTML='';
+  var list=$('plan-list');
+  var doneCount=0;
+  DATA.plan.forEach(function(p,i){ if(dayRec(i+1).done) doneCount++; });
+  $('plan-count').textContent='完成 '+doneCount+' / '+PLAN_TOTAL;
+
+  /* 单个训练日的 HTML */
+  function dayHTML(i){
+    var p=DATA.plan[i], rec=dayRec(i+1);
+    var wkLabel=weekLabelOf(i+1);
+    var stageIdx=stageIndexOf(i+1);
+    /* 阶段配色：0-2 基础/组合/马克笔=红，3 仿生=绿，4 六大主题=蓝，5 冲刺=金 */
+    var tagCls = stageIdx===3 ? 'grn' : (stageIdx===4 ? 'blu' : (stageIdx===5 ? 'mid' : 'star'));
+    return '<div class="pg">'+
+      '<div class="pg-n'+(rec.done?' done':'')+'">'+(i+1)+'</div>'+
+      '<div class="pg-b"><div class="pt">'+esc(p.content)+'</div>'+
+      '<div class="ps"><span class="tag '+tagCls+'">'+esc(p.theme)+'</span>  '+esc(wkLabel)+
+      (rec.checks&&rec.checks.length?(' · '+strToStars(rec.checks)):'')+'</div></div>'+
+      '<button class="btn small pg-go'+(rec.done?'':' primary')+'" data-day="'+(i+1)+'">'+(rec.done?'修改':'打卡')+'</button></div>';
+  }
+  /* 判断某天属于哪个阶段 */
+  function stageIndexOf(day){
+    var st=DATA.planStages||[];
+    for(var i=0;i<st.length;i++){ if(day>=st[i].from&&day<=st[i].to) return i; }
+    return -1;
+  }
+  /* 匹配当前筛选 */
+  function matchFilter(i){
+    var rec=dayRec(i+1);
+    if(planFilter==='done') return rec.done;
+    if(planFilter==='undone') return !rec.done;
+    return true;
+  }
+
+  if(planFilter==='all' && DATA.planStages){
+    /* 全部：按阶段折叠分组 */
+    DATA.planStages.forEach(function(sg,si){
+      var idxs=[]; for(var d=sg.from;d<=sg.to;d++){ idxs.push(d-1); }
+      var sDone=idxs.filter(function(i){ return dayRec(i+1).done; }).length;
+      var st=document.createElement('div'); st.className='stage'+(stageOpen[si]?' open':'');
+      var body=idxs.map(dayHTML).join('');
+      st.innerHTML='<button class="stage-head" data-stage="'+si+'">'+
+        '<span class="st-t"><b>'+esc(sg.name)+'</b><span>'+esc(sg.weeks)+' · 第'+sg.from+'-'+sg.to+'天 · 共'+idxs.length+'天</span></span>'+
+        '<span class="st-cp">'+sDone+'/'+idxs.length+'</span>'+
+        '<span class="st-arrow">▾</span></button>'+
+        '<div class="stage-body">'+(body||'<div style="color:var(--ink2);font-size:12px;padding:6px 2px">本阶段暂无内容</div>')+'</div>';
+      list.appendChild(st);
+    });
+  } else {
+    /* 未完成 / 已完成：平铺列表 */
+    var flat='';
+    for(var i=0;i<DATA.plan.length;i++){ if(matchFilter(i)) flat+=dayHTML(i); }
+    list.innerHTML=flat||'<div class="card" style="text-align:center;color:var(--ink2);font-size:13px">没有符合条件的训练日</div>';
+  }
+
+  document.querySelectorAll('#plan-list [data-day]').forEach(function(b){
+    b.onclick=function(){ var d=parseInt(b.dataset.day,10); switchView('today'); CUR_DAY=d; renderToday(); };
+  });
+  document.querySelectorAll('.stage-head[data-stage]').forEach(function(el){
+    el.onclick=function(){ var si=el.dataset.stage; stageOpen[si]=!stageOpen[si]; renderPlan(); };
+  });
+  document.querySelectorAll('.plan-f [data-pf]').forEach(function(b){
+    b.style.background=planFilter===b.dataset.pf?'linear-gradient(135deg,#e03a3a,#b81f1f)':'';
+    b.style.color=planFilter===b.dataset.pf?'#fff':'';
+    b.style.borderColor=planFilter===b.dataset.pf?'transparent':'';
+  });
+}
+document.querySelectorAll('.plan-f [data-pf]').forEach(function(b){ b.onclick=function(){ planFilter=b.dataset.pf; renderPlan(); }; });
+
+/* ================= SECTION: 知识库 ================= */
+function renderKnowledge(){
+  var s1=$('k-steps'); s1.innerHTML='';
+  DATA.steps.forEach(function(s){ var li=document.createElement('li'); li.innerHTML='<span class="kn">步骤</span><span>'+esc(s)+'</span>'; s1.appendChild(li); });
+  var m=$('k-mkr'); m.innerHTML='';
+  DATA.mkrSteps.forEach(function(s){ var li=document.createElement('li'); li.innerHTML='<span class="kn blu">精微</span><span>'+esc(s)+'</span>'; m.appendChild(li); });
+  var c2=$('k-checks'); c2.innerHTML='';
+  DATA.checks.forEach(function(c){ var li=document.createElement('li'); li.innerHTML='<span class="kn">'+esc(c[0])+'</span><span>'+esc(c[1])+'</span>'; c2.appendChild(li); });
+  var wk=$('k-weeks'); wk.innerHTML='';
+  DATA.weeks.forEach(function(w){
+    var wn=parseInt(String(w[0]).replace(/\D/g,''),10);
+    /* 第5周起进入马克笔/仿生/主题阶段，用不同色区分 */
+    var cls = wn>=7 ? 'blu' : (wn>=5 ? 'grn' : '');
+    var li=document.createElement('li'); li.innerHTML='<span class="kn '+cls+'">'+esc(w[0])+'</span><span>'+esc(w[1])+'</span>'; wk.appendChild(li);
+  });
+  var rc=$('k-routine-card'); rc.innerHTML='';
+  var total=DATA.dailyRoutine.reduce(function(s,r){ return s+r[1]; },0);
+  DATA.dailyRoutine.forEach(function(r){
+    var row=document.createElement('div'); row.className='bar-r';
+    row.innerHTML='<span class="bl">'+esc(r[0])+'</span><div class="bt"><div class="bf" style="width:'+Math.round(r[1]/total*100)+'%"></div></div><span class="bn">'+r[1]+'分</span>';
+    rc.appendChild(row);
+  });
+  var pr=$('k-priority'); pr.innerHTML='';
+  DATA.priority.forEach(function(p){
+    var row=document.createElement('div'); row.className='prio';
+    row.innerHTML='<div class="ph">'+esc(p.star)+' '+esc(p.tag)+' <span class="tag '+(p.tag==='必练'?'star':p.tag==='进阶'?'mid':'low')+'">'+esc(p.tag)+'</span></div><p>'+esc(p.list)+'</p>';
+    pr.appendChild(row);
+  });
+  var note=document.createElement('div'); note.className='prio-note';
+  note.textContent=DATA.priority[0].note; pr.appendChild(note);
+
+  /* 六大主题速查表 */
+  var tt=$('k-theme-table'); if(tt){ tt.innerHTML='';
+    (DATA.themeTable||[]).forEach(function(r){
+      var d=document.createElement('div'); d.className='tq';
+      d.innerHTML='<h5><i></i>'+esc(r[0])+'</h5>'+
+        '<div class="r"><b>方向</b><span>'+esc(r[1])+'</span></div>'+
+        '<div class="r"><b>★必练</b><span>'+esc(r[2])+'</span></div>'+
+        '<div class="r"><b>重点</b><span>'+esc(r[3])+'</span></div>';
+      tt.appendChild(d);
+    });
+  }
+  /* 六大主题训练安排 */
+  var tp=$('k-theme-plan'); if(tp){ tp.innerHTML='';
+    (DATA.themePlan||[]).forEach(function(s){ var li=document.createElement('li'); li.innerHTML='<span class="kn">安排</span><span>'+esc(s)+'</span>'; tp.appendChild(li); });
+  }
+  /* 六大主题优先级 */
+  var tpri=$('k-theme-priority'); if(tpri){ tpri.innerHTML='';
+    (DATA.themePriority||[]).forEach(function(p){
+      var row=document.createElement('div'); row.className='prio';
+      row.innerHTML='<div class="ph">'+esc(p.star)+' '+esc(p.tag)+' <span class="tag '+(p.tag==='必练'?'star':p.tag==='进阶'?'mid':'low')+'">'+esc(p.tag)+'</span></div><p>'+esc(p.list)+'</p>';
+      tpri.appendChild(row);
+    });
+  }
+  /* 仿生练习方法 */
+  var bm=$('k-bionic-method'); if(bm){ bm.innerHTML='';
+    (DATA.bionicMethod||[]).forEach(function(s){ var li=document.createElement('li'); li.innerHTML='<span class="kn grn">方法</span><span>'+esc(s)+'</span>'; bm.appendChild(li); });
+  }
+  /* 仿生材质表现要点 */
+  var bmat=$('k-bionic-mat'); if(bmat){ bmat.innerHTML='';
+    (DATA.bionicMat||[]).forEach(function(r){ var li=document.createElement('li'); li.innerHTML='<span class="kn">'+esc(r[0])+'</span><span>'+esc(r[1])+'</span>'; bmat.appendChild(li); });
+  }
+  /* 仿生训练节奏 */
+  var br=$('k-bionic-rhythm'); if(br){ br.innerHTML='';
+    (DATA.bionicRhythm||[]).forEach(function(r){
+      var row=document.createElement('div'); row.className='prio';
+      row.innerHTML='<div class="ph">'+esc(r[0])+'</div><p>'+esc(r[1])+'</p>';
+      br.appendChild(row);
+    });
+  }
+  /* 30天仿生打卡表 */
+  var bp=$('k-bionic-plan'); if(bp){
+    var html='<table class="bp-tbl"><thead><tr><th>#</th><th>类别</th><th>单体</th></tr></thead><tbody>';
+    (DATA.bionicPlan||[]).forEach(function(r){ html+='<tr><td>'+r[0]+'</td><td>'+esc(r[1])+'</td><td>'+esc(r[2])+'</td></tr>'; });
+    bp.innerHTML=html+'</tbody></table>';
+  }
+  /* 仿生优先级 + 万能单体 */
+  var bpri=$('k-bionic-priority'); if(bpri){ bpri.innerHTML='';
+    (DATA.bionicPriority||[]).forEach(function(p){
+      var row=document.createElement('div'); row.className='prio';
+      row.innerHTML='<div class="ph">'+esc(p.star)+' '+esc(p.tag)+' <span class="tag '+(p.tag==='必练'?'star':p.tag==='进阶'?'mid':'low')+'">'+esc(p.tag)+'</span></div><p>'+esc(p.list)+'</p>';
+      bpri.appendChild(row);
+    });
+  }
+  var bu=$('k-bionic-uni'); if(bu){ bu.innerHTML='';
+    (DATA.bionicUni||[]).forEach(function(s){ var sp=document.createElement('span'); sp.textContent=s; bu.appendChild(sp); });
+  }
+
+  /* 未排入计划的训练内容 */
+  var un=$('k-unplanned'); if(un){ un.innerHTML='';
+    var up=DATA.unplanned||[];
+    var cnt=0; up.forEach(function(g){ cnt+=g.items.length; });
+    var unNote=$('k-unplanned-note');
+    if(unNote) unNote.textContent='55 天冲刺计划只排入了必练主线，以下 '+cnt+' 项（进阶 / 选练 / 未排期的必练）未纳入日程，可在机动时间自行补练。点组名展开查看，仍可直接勾选打卡。';
+    up.forEach(function(g,gi){
+      var sub=document.createElement('div'); sub.className='ksub';
+      /* 去掉「A · 」字母前缀与「（★必练）」等括号标签，得到干净的分类名 */
+      var catName=g.cat.replace(/^[A-Z]\s*·\s*/,'').replace(/（[^）]*）/g,'').trim();
+      var subName=g.sub?String(g.sub).replace(/^[A-Z]\s*·\s*/,'').replace(/（[^）]*）/g,'').trim():'';
+      /* 有子组名时，去掉分类名里冗余的「单体」尾缀（如「仿生物 · 单体 · 叶」→「仿生物 · 叶」） */
+      if(subName) catName=catName.replace(/\s*·\s*单体$/,'').trim();
+      var head='<button class="ksub-head"><span>'+esc(catName)+(subName?' · '+esc(subName):'')+' <span style="opacity:.6;font-size:10px;font-weight:600">('+g.items.length+')</span></span><em>▾</em></button>';
+      var body='<div class="ksub-body">';
+      g.items.forEach(function(it){
+        var r=itemRec(it.k);
+        var boxes=DATA.CHECK_FIELDS.map(function(f){
+          return '<button class="ckb'+(r[f[0]]===true?' on':'')+'" data-k="'+esc(it.k)+'" data-f="'+f[0]+'" style="min-height:32px"><span class="bx"></span>'+f[1]+'</button>';
+        }).join('');
+        body+='<div class="ir"><div class="nm"><b>'+esc(it.n)+'</b>'+(it.d?'<small>'+esc(it.d)+'</small>':'')+'</div><div class="ir-checks">'+boxes+'</div></div>';
+      });
+      sub.innerHTML=head+body+'</div>';
+      un.appendChild(sub);
+    });
+    un.querySelectorAll('.ksub-head').forEach(function(btn){
+      btn.onclick=function(e){ e.stopPropagation(); var ks=btn.closest('.ksub'); if(ks) ks.classList.toggle('open'); };
+    });
+    un.querySelectorAll('.ckb[data-k]').forEach(function(el){
+      el.onclick=function(e){
+        e.stopPropagation();
+        var k=el.dataset.k,f=el.dataset.f,r=itemRec(k);
+        r[f]=!(r[f]===true);
+        saveState(); renderKnowledge(); toast((r[f]?'✓ 勾选':'取消')+'：'+(ITEM_MAP[k]?ITEM_MAP[k].n:k));
+      };
+    });
+  }
+}
+
+/* ================= SECTION: 统计 ================= */
+function strToStars(checks){
+  var map={'s':'结构','g':'灰阶','m':'材质','mem':'默写','a':'变角度'};
+  return checks.map(function(c){ return map[c]||c; }).join('、');
+}
+function renderStats(){
+  var doneDaysN=doneDayCount();
+  var dates=Object.keys(state.history).filter(function(k){ return state.history[k].checked; }).sort();
+  var streakMax=0,cur=0,prevDay=null;
+  dates.forEach(function(k){
+    if(prevDay===null){ cur=1; }
+    else{ var d1=new Date(prevDay+'T00:00:00'),d2=new Date(k+'T00:00:00'); var diff=Math.round((d2-d1)/86400000); cur=(diff===1)?cur+1:1; }
+    if(cur>streakMax) streakMax=cur;
+    prevDay=k;
+  });
+  $('st-days').textContent=doneDaysN;
+  $('st-streak').textContent=streakMax;
+  $('st-items').textContent=ALL_ITEMS.filter(function(it){ return itemAny(it.k); }).length+'/'+ALL_ITEMS.length;
+  $('st-checks').textContent=totalChecks();
+  $('st-percent').textContent=Math.round(doneDaysN/PLAN_TOTAL*100)+'%';
+
+  var wb=$('st-weekbars'); wb.innerHTML='';
+  DATA.weeks.forEach(function(w,i){
+    var span=[]; DATA.plan.forEach(function(p,idx){ if(weekLabelOf(idx+1)===w[0]) span.push(idx+1); });
+    var dn=span.filter(function(d){ return dayRec(d).done; }).length;
+    var row=document.createElement('div'); row.className='bar-r';
+    row.innerHTML='<span class="bl">'+esc(w[0])+'</span><div class="bt"><div class="bf" style="width:'+Math.round(dn/span.length*100)+'%"></div></div><span class="bn">'+dn+'/'+span.length+'</span>';
+    wb.appendChild(row);
+  });
+
+  var heat=$('st-heat'); heat.innerHTML='';
+  /* 打卡热力图：固定展示计划全部天数格子，打卡状态按计划天数对应 */
+  DATA.plan.forEach(function(p,i){
+    var d=i+1, rec=dayRec(d);
+    var el=document.createElement('i');
+    el.textContent=d;
+    if(rec.done){
+      var c=rec.checks||[];
+      el.className=(c.length>=4)?'done':((c.length)?'part':'done');
+    } else {
+      el.className='future';
+    }
+    if(d===CUR_DAY) el.classList.add('today');
+    el.title='第'+d+'天：'+(rec.done?'已完成'+(rec.note?'（'+rec.note+'）':''):'未完成');
+    heat.appendChild(el);
+  });
+
+  var log=$('st-log'); log.innerHTML='';
+  var entries=[];
+  Object.keys(state.days).forEach(function(k){
+    var day=parseInt(k.replace('D',''),10); var rec=state.days[k];
+    if(!rec.done&&!rec.note) return;
+    entries.push({d:day,done:rec.done,note:rec.note||'',checks:rec.checks||[]});
+  });
+  entries.sort(function(a,b){ return b.d-a.d; });
+  if(entries.length===0){
+    log.innerHTML='<div class="hr" style="border:none;color:var(--ink2)">还没有打卡记录，从「今日」开始吧。</div>';
+  }else{
+    entries.forEach(function(e){
+      var stars=strToStars(e.checks);
+      var row=document.createElement('div'); row.className='hr';
+      row.innerHTML='<span class="hd">第'+e.d+'天</span><div class="hb">'+(e.done?'✓ 已打卡':'未完成')+(stars?' · '+stars:'')+(e.note?'<div class="hn">'+esc(e.note)+'</div>':'')+'</div>';
+      log.appendChild(row);
+    });
+  }
+}
+
+/* ================= SECTION: CSV 导出 ================= */
+$('btn-export-csv').onclick=function(){
+  var lines=[PLAN_TOTAL+'天打卡导出'];
+  lines.push('天数,主题,练习内容,完成状态,阶段勾选,复盘备注');
+  DATA.plan.forEach(function(p,i){
+    var rec=dayRec(i+1);
+    var stars=rec.checks&&rec.checks.length?strToStars(rec.checks):'';
+    lines.push([i+1,p.theme,'"'+p.content.replace(/"/g,'""')+'"',rec.done?'已完成':'未完成',stars,'"'+((rec.note||'').replace(/"/g,'""'))+'"'].join(','));
+  });
+  lines.push(''); lines.push('练习清单导出（含细分小项）');
+  lines.push('分类,物品,结构,灰阶,材质,默写,变角度');
+  ALL_ITEMS.forEach(function(it){
+    var r=itemRec(it.k);
+    lines.push([it.sub.replace(/,/g,'，'),'"'+it.n.replace(/"/g,'""')+'"',r.s?'✓':'',r.g?'✓':'',r.m?'✓':'',r.mem?'✓':'',r.a?'✓':''].join(','));
+  });
+  var blob=new Blob(['\ufeff'+lines.join('\n')],{type:'text/csv;charset=utf-8'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='央美产品手绘打卡-'+todayKey()+'.csv';
+  document.body.appendChild(a); a.click();
+  setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); },200);
+  toast('CSV 已导出');
+};
+
+/* ================= SECTION: 重置 ================= */
+$('btn-reset').onclick=function(){
+  if(confirm('确定重置全部打卡数据吗？此操作不可恢复。')){ state={items:{},days:{},history:{}}; saveState(); CUR_DAY=1; switchView('today'); toast('已重置全部数据'); }
+};
+$('btn-clear-log').onclick=function(){
+  if(confirm('确定清空训练日志（保留打卡天数）吗？')){ state.days={}; saveState(); renderStats(); toast('日志已清空'); }
+};
+$('ck-filter').onchange=function(){ renderCheckin(); };
+
+/* 知识板块折叠（大板块 + 嵌套子板块） */
+document.querySelectorAll('.kfold-head').forEach(function(btn){
+  btn.onclick=function(){
+    var kf=btn.closest('.kfold');
+    if(kf) kf.classList.toggle('open');
+  };
+});
+document.querySelectorAll('.ksub-head').forEach(function(btn){
+  btn.onclick=function(e){
+    e.stopPropagation();
+    var ks=btn.closest('.ksub');
+    if(ks) ks.classList.toggle('open');
+  };
+});
+
+/* 训练日志折叠 */
+var logFold=$('log-head');
+if(logFold){
+  logFold.querySelector('.log-arrow').addEventListener('click', function(e){
+    e.stopPropagation();
+    logFold.closest('.log-fold').classList.toggle('open');
+  });
+  logFold.addEventListener('click', function(e){
+    if(e.target.id==='btn-clear-log'||e.target.closest('#btn-clear-log')) return;
+    logFold.closest('.log-fold').classList.toggle('open');
+  });
+}
+
+/* ================= SECTION: 初始化 ================= */
+loadState();
+/* 回填动态总天数 */
+['hd-total','today-total','st-total'].forEach(function(id){ var e=$(id); if(e) e.textContent=PLAN_TOTAL; });
+switchView('today');
+</script>
+</body>
+</html>
